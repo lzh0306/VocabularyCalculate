@@ -1,0 +1,11 @@
+<view class="rankContainer">
+    <view class="nav">
+      <block>
+         <view bindtap="tarClick" data-index="0" style="color: {{color[0]}};">1</view>
+      </block>
+      <block>
+         <view bindtap="tarClick" data-index="1" style="color: {{color[1]}};">2</view>
+      </block>
+      
+   </view>
+</view>

@@ -1,0 +1,35 @@
+.indexContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    margin-top: 20%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.function {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50rpx;
+    width: 80%;
+    background: rgb(219, 252, 185);
+    border-radius: 20rpx;
+}
+
+.f1 {
+    height: 150rpx;
+    width: 30%;
+    margin-left: 20rpx;
+    line-height: 150rpx;
+}
+.btn_begin{
+    line-height: 50rpx;
+    height: 50rpx;
+    text-align: center;
+    width: 120rpx;
+    margin-top: 50rpx;
+    margin-left: 40%;
+    background-color: rgb(122, 240, 185);
+    border-radius: 20rpx;
+}
