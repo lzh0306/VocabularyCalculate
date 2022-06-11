@@ -1,1 +1,26 @@
-/* pages/personal/personal.wxss */
+.personalContainer{
+    background-color: #f5f5f5;
+    height: 100vh;
+}
+.userInfo{
+    height: 200rpx;
+    margin: 0 20rpx;
+    background-color: white;
+    border-radius: 10rpx;
+    display: flex;
+    align-items: center;
+}
+.avatarUrl{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius:10rpx;
+    margin: 50rpx 20rpx;
+}
+.signOut{
+    margin: 20rpx 20rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    background-color: white;
+
+}

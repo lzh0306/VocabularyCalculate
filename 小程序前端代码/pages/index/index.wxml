@@ -2,10 +2,10 @@
     <image src="/images/CET.png" mode="aspectFill"></image>
     <view class="function" style="margin-top: 10%;">
         <view class="f1">词汇量估算</view>
-        <view class="btn_begin">开始</view>
+        <view class="btn_begin" bindtap="toEstimate">开始</view>
     </view>
     <view class="function">
         <view class="f1">匹配对手</view>
-        <view class="btn_begin">开始</view>
+        <view class="btn_begin" bindtap="toMarry">开始</view>
     </view>
 </view>

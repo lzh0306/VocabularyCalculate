@@ -1,11 +1,90 @@
 <view class="rankContainer">
     <view class="nav">
-      <block>
-         <view bindtap="tarClick" data-index="0" style="color: {{color[0]}};">1</view>
-      </block>
-      <block>
-         <view bindtap="tarClick" data-index="1" style="color: {{color[1]}};">2</view>
-      </block>
-      
-   </view>
+        <block>
+            <view bindtap="tarClick" data-index="0" style="color: {{color[0]}};">排名1</view>
+        </block>
+        <block>
+            <view bindtap="tarClick" data-index="1" style="color: {{color[1]}};">排名2</view>
+        </block>
+    </view>
+
+    <swiper class="swiper" bind:change="changeTab" current="{{index}}">
+        <swiper-item>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+        </swiper-item>
+        <swiper-item>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+            <view class="listContain">
+                <text style="margin-left: 20rpx;">1</text>
+                <image src="/images/CET.png"></image>
+                <view class="name">
+                    <text>name</text>
+                    <text>签名</text>
+                </view>
+                <text style="margin-left: 45%;">1213</text>
+            </view>
+        </swiper-item>
+    </swiper>
 </view>

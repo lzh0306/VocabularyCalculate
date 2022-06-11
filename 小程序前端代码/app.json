@@ -1,8 +1,10 @@
 {
-  "pages": ["pages/rank/rank",
+  "pages": [
     "pages/index/index",
-    
+    "pages/rank/rank",
     "pages/personal/personal",
+    "pages/marry/marry",
+    "pages/estimate/estimate",
     "pages/logs/logs"
   ],
   "window": {

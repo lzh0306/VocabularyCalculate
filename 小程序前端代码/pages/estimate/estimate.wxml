@@ -1,0 +1,15 @@
+<view  wx:if="{{1}}" class="estimateContain">
+    <view class="words">jisjij</view>
+    <view class="choose">
+        <button style="background: gray;">不认识</button>
+        <button type="primary">认识</button>
+    </view>
+</view>
+
+<view wx:if="{{0}}" class="estimateContain">
+    <view class="score">454455</view>
+    <view class="choose">
+        <button type="primary" bindtap="back">返回首页</button>
+        <button type="primary" bindtap="oneMore">再来一次</button>
+    </view>
+</view>

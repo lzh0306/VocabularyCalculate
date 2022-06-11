@@ -1,14 +1,24 @@
-// pages/rank/rank.js
+// pages/estimate/estimate.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        index: '0',//排行榜标识
-        color: ['red', 'black'],
+
     },
 
+    //返回首页
+    back(){
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+    },
+
+    //再来一次
+    oneMore(){
+        console.log("one more time")
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -16,34 +26,6 @@ Page({
 
     },
 
-    //点击切换排行榜
-    tarClick(e) {
-        let index = e.currentTarget.dataset.index
-        this.setData({
-            index
-        })
-        this.changeColor(index)
-    },
-    //滑动切换排行榜
-    changeTab(e) {
-        let index = e.detail.current
-        this.setData({
-            index
-        })
-        this.changeColor(index)
-    },
-    //切换标题色彩
-    changeColor(index){
-        var color=[]
-        if(index==0){
-            color = ['red', 'black']
-        }else{
-            color = ['black', 'red']
-        }
-        this.setData({
-            color
-        })
-    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

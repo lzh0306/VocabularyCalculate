@@ -15,6 +15,19 @@ Page({
 
     },
 
+    //跳转词汇量估算
+    toEstimate(){
+        wx.navigateTo({
+          url: '/pages/estimate/estimate',
+        })
+    },
+
+    //跳转匹配对手
+    toMarry(){
+        wx.navigateTo({
+          url: '/pages/marry/marry',
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
