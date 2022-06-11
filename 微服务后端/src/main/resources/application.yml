@@ -1,0 +1,10 @@
+server:
+  port: 10000
+
+
+# swagger文档开关
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
