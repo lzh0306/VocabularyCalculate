@@ -4,8 +4,8 @@
     </view>
     <view class="words">{{word}}</view>
     <view class="choose">
-        <button style="background: gray;" bindtap="next" data-known="false">不认识</button>
-        <button type="primary" bindtap="next" data-known="true">认识</button>
+        <button style="background: gray;" bindtap="next" data-known="0">不认识</button>
+        <button type="primary" bindtap="next" data-known="1">认识</button>
     </view>
 </view>
 

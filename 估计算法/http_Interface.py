@@ -31,6 +31,7 @@ def start_test():
 def output_quantity():
     # output_result = OutputResult()
     json_post = request.get_json()
+    print(len(json_post))
     # json_post = json.dumps(json_post)
     result = output_result.return_quantity(json_post)
     result = int(result / 1)

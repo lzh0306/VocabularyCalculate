@@ -1,4 +1,5 @@
 // pages/marry/marry.js
+let websocket = require('../../utils/webSocket.js')
 Page({
 
     /**
@@ -12,9 +13,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        websocket.ws_connect(data=>{
+            console.log(data)  //打印常链接返回的更新内容
+        })
     },
 
+    send(){
+        //发送常链接消息
+        let msg = "1231132"
+        websocket.sendMsg(msg,success=>{
+            
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

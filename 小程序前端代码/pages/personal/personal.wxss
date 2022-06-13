@@ -16,6 +16,26 @@
     border-radius:10rpx;
     margin: 50rpx 20rpx;
 }
+.functionList{
+    width: 94%;
+    margin-left: 22rpx;
+    margin-top: 20rpx;
+    border-radius: 30rpx;
+    flex-direction: column;
+}
+.btnlist{
+    height: 75rpx;
+    margin-top: 4rpx;
+    border-radius:10rpx;
+    background-color: white;
+    font-size: 36rpx; 
+    line-height: 75rpx;
+    padding: 10rpx;
+}
+.btnlist .more{
+    float: right;
+    color: rgb(94, 90, 90);
+}
 .signOut{
     margin: 20rpx 20rpx;
     height: 80rpx;

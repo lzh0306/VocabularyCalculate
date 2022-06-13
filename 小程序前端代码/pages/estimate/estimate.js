@@ -1,5 +1,6 @@
 // pages/estimate/estimate.js
 import request from '../../utils/request'
+import config from '../../utils/config'
 Page({
 
     /**
@@ -13,23 +14,30 @@ Page({
         index: '0',
         result: [],
         width: "0",
+        url:1,
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let url = wx.getStorageSync('url')
+        if(url!=''){
+            this.setData({
+            url
+        })
+        }
         wx.showToast({
             title: '正在获取词汇',
             icon: 'loading',
             duration: 15000,
             mask: true
         })
-        this.getWords("/preply/getInitVe")
+        this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
     },
 
     //获取单词
-    async getWords(url, data = {}, method = 'GET',CType='application/json') {
-        let result = await request(url, data, method,CType)
+    async getWords(url, data = {}, method = 'GET', CType = 'application/json') {
+        let result = await request(url, data, method, CType)
         wx.hideToast()
         if (result.code == 1) {
             let word = result.data[0].word
@@ -38,6 +46,7 @@ Page({
             this.setData({
                 word,
                 wordsList: result.data,
+                width: "0",
                 time
             })
         }
@@ -46,14 +55,14 @@ Page({
     //提交数据并进行第二次申请词汇
     async commit(url, data = {}, method = 'GET') {
         let result = await request(url, data, method)
+        console.log(data)
         if (result.code == 1) {
             this.setData({
-                width: "0",
-                wordsList:'',
-                result:[]
+                wordsList: '',
+                result: []
             })
             let data = "midpoint=" + result.data
-            this.getWords("/preply/getSecondVe", data, "POST","application/x-www-form-urlencoded")
+            // this.getWords("/preply/getSecondVe", data, "POST", "application/x-www-form-urlencoded")
         }
     },
 
@@ -64,6 +73,12 @@ Page({
         let wordsList = this.data.wordsList
         let result = this.data.result
         let width = ((index + 1) / wordsList.length) * 100
+
+        if (known=="1") {
+            known = true
+        } else {
+            known = false
+        }
         let add = {
             "known": known,
             "wordId": wordsList[index].id
@@ -90,14 +105,12 @@ Page({
                     duration: 15000,
                     mask: true
                 })
-                this.commit("/preply/getResult", result, "POST")
+                this.commit(config.url[this.data.url].getResult, result, "POST")
             } else {
-
                 this.setData({
                     isShow: 0
                 })
             }
-
         }
     },
     //返回首页

@@ -1,5 +1,5 @@
 <view class="indexContainer">
-    <image src="/images/CET.png" mode="aspectFill"></image>
+    <image src="/images/CET.png"	lazy-load="true" mode="aspectFit"></image>
     <view class="function" style="margin-top: 10%;">
         <view class="f1">词汇量估算</view>
         <view class="btn_begin" bindtap="toEstimate">开始</view>

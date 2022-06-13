@@ -1,0 +1,15 @@
+<view class="basicSettingContain">
+    <view class="interface">
+        <view class="iface">当前接口:</view>
+        <!-- <view class="name">接口一</view>
+        <view class="btn" style="background: {{color[0]}};" bindtap="changeTnterface" data-url="0"></view>
+        <view class="name">接口二</view>
+        <view class="btn" style="background: {{color[1]}};" bindtap="changeTnterface" data-url="1"></view> -->
+        <view class="name">
+            <picker mode="selector" bindchange="changeTnterface" value="{{url}}" range="{{interfaceList}}">
+                <text>{{interfaceList[url]}}</text>
+                <text>></text>
+            </picker>
+        </view>
+    </view>
+</view>

@@ -1,32 +1,33 @@
-// pages/index/index.js
+// pages/basicSetting/basicSetting.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        interfaceList: ["preply", "han"],
+        url: 1,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-      
-    },
-
-    //跳转词汇量估算
-    toEstimate(){
-        wx.navigateTo({
-          url: '/pages/estimate/estimate',
+        let url = wx.getStorageSync('url')
+        if(url!=''){
+            this.setData({
+            url
         })
+        }
+        
     },
-
-    //跳转匹配对手
-    toMarry(){
-        wx.navigateTo({
-          url: '/pages/marry/marry',
+    changeTnterface(e) {
+        let url = e.detail.value
+        console.log(url)
+        this.setData({
+            url
         })
+        wx.setStorageSync('url', url)
     },
     /**
      * 生命周期函数--监听页面初次渲染完成

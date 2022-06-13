@@ -1,10 +1,11 @@
 {
-  "pages": ["pages/estimate/estimate",
+  "pages": [
     "pages/index/index",
     "pages/rank/rank",
     "pages/personal/personal",
+    "pages/basicSetting/basicSetting",
     "pages/marry/marry",
-    
+    "pages/estimate/estimate",
     "pages/logs/logs"
   ],
   "window": {
