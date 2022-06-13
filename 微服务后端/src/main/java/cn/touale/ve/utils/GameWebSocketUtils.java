@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -34,6 +36,14 @@ public final class GameWebSocketUtils {
         gameWebSocketUtils.battleServer = this.battleServer;
     }
 
+    public static Boolean isCanLogin(Integer userid) {
+        for (Player player : ONLINE_PLAYERS) {
+            if (player.getUserId().equals(userid)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void sendMessageToRoom(Long roomId, String message) {
         if (roomId == null) return;
@@ -60,17 +70,29 @@ public final class GameWebSocketUtils {
         if (session == null || !session.isOpen()) return;
         final RemoteEndpoint.Basic basic = session.getBasicRemote();
         if (basic == null) return;
-        try {
 
-            basic.sendText(message);
-        } catch (Exception e) {
-            e.printStackTrace();
+        synchronized (session) {
+            try {
+                basic.sendText(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void login(Integer userid, Session session) {
         log.info("用户登录：{}", userid);
-
+        if (!isCanLogin(userid)) {
+            ResultDTO res = new ResultDTO();
+            sendMessageToSession(session, res.buildFail("禁止重复登录").toJsonString());
+            log.warn("用户登录失败：{}", userid);
+            try {
+                session.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         Player player = new Player()
                 .setUserId(userid)
                 .setSession(session)
@@ -100,15 +122,21 @@ public final class GameWebSocketUtils {
     }
 
 
-    public static String match(Integer userId) {
+    public static void match(Integer userId) {
         Room myRoom = null;
         Player player = findPlayerByUserid(userId);
-        if (player == null) return "匹配异常，请重新加入游戏";
-        if (!player.getStatus().equals(PlayerStatus.IN)) return "匹配失败，已在对局中";
+        if (player == null) {
+            sendMessageToUser(userId, "匹配异常，请重新加入游戏");
+            return;
+        }
+        if (!player.getStatus().equals(PlayerStatus.IN)) {
+            sendMessageToUser(userId, "匹配失败，已在对局中");
+            return;
+        }
 
         for (Room room : GAME_ROOMS) {
             if (room.getStatus().equals(RoomStatus.MATCHING)) {
-                log.info(userId + "进入房间");
+                log.info(userId + "进入房间" + room.getId());
                 myRoom = room;
                 myRoom.getPlayers().add(player);
                 myRoom.setPlayerNumber(myRoom.getPlayerNumber() + 1);
@@ -121,7 +149,7 @@ public final class GameWebSocketUtils {
                     // 通知开始游戏了
                     sendMessageToRoom(myRoom.getId(), "游戏即将开始，请选手做好准备");
                     sendQuestionToRoom(myRoom);
-                    return "匹配成功";
+                    return;
                 }
 
             }
@@ -141,9 +169,10 @@ public final class GameWebSocketUtils {
             player.setStatus(PlayerStatus.PLAYING);
             GAME_ROOMS.add(myRoom);
             log.info(userId + "创建房间" + myRoom.getId());
-            return "匹配中...";
+            sendMessageToUser(userId, "匹配中...");
+            return;
         }
-        return "匹配失败";
+        sendMessageToUser(userId, "匹配失败");
     }
 
     public static void sendQuestionToRoom(Room room) {
@@ -206,6 +235,12 @@ public final class GameWebSocketUtils {
         GAME_ROOMS.remove(room);
         ONLINE_PLAYERS.remove(a);
         ONLINE_PLAYERS.remove(b);
+        try {
+            a.getSession().close();
+            b.getSession().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void runWay(Integer userId) {
@@ -214,14 +249,23 @@ public final class GameWebSocketUtils {
             ResultDTO res = new ResultDTO();
             res.buildSucc("用户" + userId + "离开，房间已解散", null, WsType.OVERGAME);
             sendMessageToRoom(room.getId(), res.toJsonString());
-            for(Player player:room.getPlayers()){
+            for (Player player : room.getPlayers()) {
                 ONLINE_PLAYERS.remove(player);
             }
             GAME_ROOMS.remove(room);
             log.info("对局结果：{}", res);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
         }
     }
 
+    public static CopyOnWriteArrayList<Room> getAllRoom() {
+        //List<Room> temp = GAME_ROOMS;
+        return GAME_ROOMS;
+    }
+
+    public static CopyOnWriteArrayList<Player> getAllPlayers() {
+        
+        return ONLINE_PLAYERS;
+    }
 }

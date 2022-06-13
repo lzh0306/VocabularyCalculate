@@ -17,7 +17,7 @@ public class BattleServerImpl implements BattleServer {
     @Override
     public List<Question> getQuestionsList(){
         List<Question> questionList = new ArrayList<>();
-        for(int i = 0;i<5;i++){
+        for(int i = 0;i<3;i++){
             Question temp = new Question()
                     .setWordId(1)
                     .setQuestion("touale")

@@ -68,11 +68,16 @@ public class BattleController {
         }
 
         if (type.equals("match")) {
-            GameWebSocketUtils.sendMessageToSession(session, GameWebSocketUtils.match(userId));
+             GameWebSocketUtils.match(userId);
             return;
         }
 
         if (type.equals("play")) {
+            GameWebSocketUtils.play(userId, true); // ToDo 题目真实结果
+            return;
+        }
+
+        if (type.equals("get")) {
             GameWebSocketUtils.play(userId, true); // ToDo 题目真实结果
             return;
         }

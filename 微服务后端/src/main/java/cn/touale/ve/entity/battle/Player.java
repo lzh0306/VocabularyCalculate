@@ -1,5 +1,6 @@
 package cn.touale.ve.entity.battle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -14,7 +15,10 @@ import javax.websocket.Session;
 @Accessors(chain =true)
 public class Player {
     private Integer userId;
+
+    @JsonIgnore
     private Session session;
+
     private PlayerStatus status;
     private Long roomId;
     private Integer score;
