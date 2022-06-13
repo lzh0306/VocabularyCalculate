@@ -1,6 +1,6 @@
 import json
 
-from 选择输出 import get_quantity_test, load_db, get_id_list
+from Output_Test import get_quantity_test, load_db, get_id_list
 
 # Quantity_level1 = 1405
 # Quantity_level2 = 1936

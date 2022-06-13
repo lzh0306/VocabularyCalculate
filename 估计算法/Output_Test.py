@@ -123,7 +123,7 @@ def list_to_test_db(list_level):  # 从该级词汇列表中选择词汇
     value = list_level[i][1]  # value为单词
     test_level.append(rank)
     # value_level.append(value)
-    data.append({'value': value, 'id': rank})
+    data.append({'word': value, 'id': rank})
     while len(test_level) < quantity_test:  # 一级测试几个
         i = random.randint(0, len_list)
         rank = list_level[i][0]  # rank为单词id
@@ -131,7 +131,7 @@ def list_to_test_db(list_level):  # 从该级词汇列表中选择词汇
         if rank not in test_level:
             test_level.append(rank)
             # value_level.append(value)
-            data.append({'value': value, 'id': rank})
+            data.append({'word': value, 'id': rank})
     return data
 
 

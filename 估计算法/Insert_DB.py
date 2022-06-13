@@ -1,6 +1,6 @@
 import pymysql
 
-from 选择输出 import load_txt
+from Output_Test import load_txt
 
 db = pymysql.connect(host="sh-cynosdbmysql-grp-ky91abiy.sql.tencentcdb.com",
                      port=25742, user='root', passwd='Rotoc.111', db='ve')

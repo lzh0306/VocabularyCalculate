@@ -1,7 +1,7 @@
 import json
 
-from 输入计算 import quantities
-from 选择输出 import get_id_list
+from Output_Result import quantities
+from Output_Test import get_id_list
 
 
 class OutputResult:

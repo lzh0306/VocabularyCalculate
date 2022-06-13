@@ -4,8 +4,8 @@ from flask import Flask
 import os
 from flask import request
 
-from 输入计算封装 import OutputResult
-from 选择输出封装 import OutputTest
+from Output_Result_class import OutputResult
+from Output_Test_class import OutputTest
 
 app = Flask(__name__)
 

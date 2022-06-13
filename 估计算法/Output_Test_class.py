@@ -1,7 +1,7 @@
 import random
 import json
 
-from 选择输出 import get_test_json_from_db, get_quantity_test
+from Output_Test import get_test_json_from_db, get_quantity_test
 
 quantity_test = get_quantity_test()
 
@@ -37,7 +37,7 @@ class OutputTest:
             data.append(json.loads(self.json_level4)['localdata'][i])
         for i in range(0, quantity_test, 1):
             data.append(json.loads(self.json_level5)['localdata'][i])
-        jl = {'code': 1, 'msg': 'success', 'localdata': data}
+        jl = {'code': 1, 'msg': 'success', 'data': data}
         jl = json.dumps(jl)
         return jl
 
