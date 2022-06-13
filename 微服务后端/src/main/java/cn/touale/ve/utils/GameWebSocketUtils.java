@@ -1,5 +1,6 @@
 package cn.touale.ve.utils;
 
+import cn.touale.ve.config.ResultCode;
 import cn.touale.ve.config.ResultDTO;
 import cn.touale.ve.entity.battle.*;
 import cn.touale.ve.service.battle.BattleServer;
@@ -121,16 +122,17 @@ public final class GameWebSocketUtils {
         return null;
     }
 
-
-    public static void match(Integer userId) {
+    public static void match(Integer userId, String image, String userName) {
+        ResultDTO result = new ResultDTO();
         Room myRoom = null;
         Player player = findPlayerByUserid(userId);
         if (player == null) {
-            sendMessageToUser(userId, "匹配异常，请重新加入游戏");
+            sendMessageToUser(userId, result.buildError(ResultCode.MSG, "匹配异常，请重新加入游戏").toJsonString());
             return;
         }
+        player.setImage(image).setUserName(userName);
         if (!player.getStatus().equals(PlayerStatus.IN)) {
-            sendMessageToUser(userId, "匹配失败，已在对局中");
+            sendMessageToUser(userId, result.buildError(ResultCode.MSG, "匹配失败，已在对局中").toJsonString());
             return;
         }
 
@@ -141,13 +143,18 @@ public final class GameWebSocketUtils {
                 myRoom.getPlayers().add(player);
                 myRoom.setPlayerNumber(myRoom.getPlayerNumber() + 1);
                 player.setRoomId(myRoom.getId());
-                sendMessageToRoom(myRoom.getId(), userId + "加入房间" + myRoom.getId());
+                sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.MSG,
+                        userId + "加入房间" + myRoom.getId(),
+                        null,
+                        WsType.MATCH).toJsonString());
                 player.setStatus(PlayerStatus.PLAYING);
 
                 if (myRoom.getPlayers().size() >= START_NUMBER) {
                     myRoom.setStatus(RoomStatus.PLAYING);
                     // 通知开始游戏了
-                    sendMessageToRoom(myRoom.getId(), "游戏即将开始，请选手做好准备");
+                    sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.MSG, "游戏即将开始，请选手做好准备",
+                            null,
+                            WsType.MATCH).toJsonString());
                     sendQuestionToRoom(myRoom);
                     return;
                 }
@@ -169,10 +176,10 @@ public final class GameWebSocketUtils {
             player.setStatus(PlayerStatus.PLAYING);
             GAME_ROOMS.add(myRoom);
             log.info(userId + "创建房间" + myRoom.getId());
-            sendMessageToUser(userId, "匹配中...");
+            sendMessageToUser(userId, result.buildSucc(ResultCode.ERROR, "匹配中...", null, WsType.MATCH).toJsonString());
             return;
         }
-        sendMessageToUser(userId, "匹配失败");
+        sendMessageToUser(userId, result.buildSucc(ResultCode.TIMEOUT, "匹配失败...", null, WsType.MATCH).toJsonString());
     }
 
     public static void sendQuestionToRoom(Room room) {
@@ -246,26 +253,35 @@ public final class GameWebSocketUtils {
     public static void runWay(Integer userId) {
         try {
             Room room = findRoomByRoomId(findPlayerByUserid(userId).getRoomId());
+            Player a = room.getPlayers().get(0);
+            Player b = room.getPlayers().get(1);
             ResultDTO res = new ResultDTO();
             res.buildSucc("用户" + userId + "离开，房间已解散", null, WsType.OVERGAME);
             sendMessageToRoom(room.getId(), res.toJsonString());
-            for (Player player : room.getPlayers()) {
-                ONLINE_PLAYERS.remove(player);
-            }
             GAME_ROOMS.remove(room);
+            ONLINE_PLAYERS.remove(a);
+            ONLINE_PLAYERS.remove(b);
+            try {
+                a.getSession().close();
+                b.getSession().close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             log.info("对局结果：{}", res);
-
         } catch (Exception e) {
         }
+
+        ONLINE_PLAYERS.remove(findPlayerByUserid(userId));
+
+
+
     }
 
     public static CopyOnWriteArrayList<Room> getAllRoom() {
-        //List<Room> temp = GAME_ROOMS;
         return GAME_ROOMS;
     }
 
     public static CopyOnWriteArrayList<Player> getAllPlayers() {
-        
         return ONLINE_PLAYERS;
     }
 }

@@ -24,7 +24,7 @@ public class WsInfoController {
     private GameWebSocketUtils gameWebSocketUtils;
 
 
-    @Operation(summary = "获取房间信息", description = "获取房间信息")
+    @Operation(summary = "获取所有房间信息", description = "获取房间信息")
     @GetMapping("/getAllRoom")
     public ResultDTO getAllRoom() {
         ResultDTO res = new ResultDTO();
@@ -32,10 +32,11 @@ public class WsInfoController {
         return res.buildSucc(GameWebSocketUtils.getAllRoom());
     }
 
-    @Operation(summary = "获取玩家信息", description = "获取玩家信息")
+    @Operation(summary = "获取所有玩家信息", description = "获取玩家信息")
     @GetMapping("/getAllPlayers")
     public ResultDTO getAllPlayers() {
         ResultDTO res = new ResultDTO();
         return res.buildSucc(gameWebSocketUtils.getAllPlayers());
     }
+
 }
