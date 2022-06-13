@@ -12,7 +12,7 @@ class OutputResult:
         correct_quantity = [0, 0, 0, 0, 0]
         word_quantity = 0
         for i in range(0, 40, 1):
-            if json_result[i]['known'] == 'true':
+            if json_result[i]['known']:
                 if json_result[i]['wordId'] in self.l1:
                     correct_quantity[0] += 1
                 elif json_result[i]['wordId'] in self.l2:
