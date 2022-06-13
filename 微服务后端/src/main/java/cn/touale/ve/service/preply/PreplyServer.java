@@ -1,7 +1,7 @@
-package cn.touale.ve.service;
+package cn.touale.ve.service.preply;
 
 import cn.touale.ve.config.ResultDTO;
-import cn.touale.ve.entity.PreplyAnswer;
+import cn.touale.ve.entity.preply.PreplyAnswer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

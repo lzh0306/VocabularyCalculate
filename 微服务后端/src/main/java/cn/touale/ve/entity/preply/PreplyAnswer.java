@@ -1,4 +1,4 @@
-package cn.touale.ve.entity;
+package cn.touale.ve.entity.preply;
 
 import lombok.Data;
 

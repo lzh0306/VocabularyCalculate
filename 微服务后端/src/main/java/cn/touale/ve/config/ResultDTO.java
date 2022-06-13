@@ -1,4 +1,5 @@
 package cn.touale.ve.config;
+import cn.touale.ve.entity.battle.WsType;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class ResultDTO<T> {
     private T data;
 
     private String msg;
+
+    private Integer type;
 
     public ResultDTO() {
     }
@@ -55,6 +58,11 @@ public class ResultDTO<T> {
         return this;
     }
 
+    public ResultDTO<T> type(Integer type) {
+        this.setType(type);
+        return this;
+    }
+
     public ResultDTO<T> msg(String msg) {
         this.setMsg(msg);
         return this;
@@ -69,6 +77,11 @@ public class ResultDTO<T> {
      */
     public ResultDTO<T> buildSucc(String msg, T data) {
         this.succ().msg(msg).data(data);
+        return this;
+    }
+
+    public ResultDTO<T> buildSucc(String msg, T data,WsType type) {
+        this.succ().msg(msg).data(data).type(type.getStatus());
         return this;
     }
 

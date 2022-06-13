@@ -1,8 +1,8 @@
 package cn.touale.ve.controller;
 
 import cn.touale.ve.config.ResultDTO;
-import cn.touale.ve.entity.PreplyAnswer;
-import cn.touale.ve.service.PreplyServer;
+import cn.touale.ve.entity.preply.PreplyAnswer;
+import cn.touale.ve.service.preply.PreplyServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

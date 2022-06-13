@@ -1,10 +1,10 @@
-package cn.touale.ve.service.impl;
+package cn.touale.ve.service.preply.impl;
 
 import cn.touale.ve.config.ResultCode;
 import cn.touale.ve.config.ResultDTO;
-import cn.touale.ve.entity.PreplyAnswer;
-import cn.touale.ve.entity.PreplyWorld;
-import cn.touale.ve.service.PreplyServer;
+import cn.touale.ve.entity.preply.PreplyAnswer;
+import cn.touale.ve.entity.preply.PreplyWorld;
+import cn.touale.ve.service.preply.PreplyServer;
 import cn.touale.ve.utils.DataDeal;
 import cn.touale.ve.utils.OkHttpUtil;
 import com.alibaba.fastjson.JSON;
