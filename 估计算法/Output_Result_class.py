@@ -72,13 +72,11 @@ class OutputResult:
         for i in range(0, 5, 1):
             if correct_quantity[i] > correct_quantity[index_max]:
                 index_max = i
-        print(test_quantity)
         test_sum = 0
         for i in range(0, 5, 1):
             test_sum += test_quantity[i]
         if test_sum < 40:
             test_quantity[index_max] += 40 - test_sum
-        print(test_quantity)
         return test_quantity
 
 # outputResult = OutputResult()

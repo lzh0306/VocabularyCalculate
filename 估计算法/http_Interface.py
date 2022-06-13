@@ -37,15 +37,11 @@ def start_test():
 def output_quantity():
     # output_result = OutputResult()
     json_post = request.get_json()
-<<<<<<< HEAD
-    print(len(json_post))
-=======
     if len(json_post) == 40:
         # output_result.return_second_test_quantity_list(json_post)
         quantity_list = output_result.return_second_test_quantity_list(json_post)
         jl = output_test.get_jl(quantity_list)
         return jl
->>>>>>> 2edee87f80edbdfecbbf4287070f890b01c1a790
     # json_post = json.dumps(json_post)
     elif len(json_post) == 80:
         result = output_result.return_quantity(json_post)
