@@ -20,5 +20,5 @@
     <view class="answer">A.我</view>
     <view class="answer">B.我</view>
     <view class="answer">C.我</view>
-    <view class="answer">D.我</view>
+    <view class="answer" bindtap="send">D.我</view>
 </view>

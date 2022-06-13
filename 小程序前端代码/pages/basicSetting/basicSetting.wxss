@@ -1,0 +1,42 @@
+.basicSettingContain {
+    height: 100vh;
+    width: 100vw;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    line-height: 120rpx;
+}
+
+.interface {
+    display: flex;
+    flex-direction: row;
+    height: 120rpx;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 20rpx;
+    background: white;
+    border-radius: 20rpx;
+}
+
+.iface {
+    height: 120rpx;
+    width: fit-content;
+    font-size: 40rpx;
+    line-height: 120rpx;
+    margin-left: 20rpx;
+}
+
+.name {
+    width: fit-content;
+    position: fixed;
+    right: 10%;
+}
+
+.btn {
+    height: 30rpx;
+    width: 30rpx;
+    margin-top: 47rpx;
+    border-radius: 50rpx;
+    background: chartreuse;
+    margin-left: 20rpx;
+}

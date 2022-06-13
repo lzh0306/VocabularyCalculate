@@ -8,9 +8,21 @@
     background: #f5f5f5;
 }
 
+.outBar{
+    height: 10rpx;
+    width: 80%;
+    margin-top: 18vh;
+    border-radius: 10rpx;
+    background-color: chartreuse;
+}
+.inBar{
+    height: 10rpx;
+    border-radius: 10rpx;
+    background: red;
+}
 .words{
     background: white;
-    margin-top: 20vh;
+    margin-top: 20rpx;
     height: 100rpx;
     line-height: 100rpx;
     width: 350rpx;

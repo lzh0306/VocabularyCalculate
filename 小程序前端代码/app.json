@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/rank/rank",
     "pages/personal/personal",
+    "pages/basicSetting/basicSetting",
     "pages/marry/marry",
     "pages/estimate/estimate",
     "pages/logs/logs"
@@ -37,6 +38,5 @@
     }]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "sitemapLocation": "sitemap.json"
 }
