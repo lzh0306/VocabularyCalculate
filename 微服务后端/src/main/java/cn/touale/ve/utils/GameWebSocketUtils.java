@@ -115,7 +115,7 @@ public final class GameWebSocketUtils {
     }
 
     public static Room findRoomByRoomId(Long roomId) {
-
+        if (roomId == null) return null;
         for (Room room : GAME_ROOMS) {
             if (room.getId().equals(roomId)) {
                 return room;
@@ -154,7 +154,7 @@ public final class GameWebSocketUtils {
                 if (myRoom.getPlayers().size() >= START_NUMBER) {
                     myRoom.setStatus(RoomStatus.PLAYING);
                     // 通知开始游戏了
-                    sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.SUCC, "游戏即将开始，请选手做好准备",
+                    sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.MSG, "游戏即将开始，请选手做好准备",
                             null,
                             WsType.MATCH).toJsonString());
                     sendQuestionToRoom(myRoom);
@@ -201,7 +201,7 @@ public final class GameWebSocketUtils {
 
         res.buildSucc("第" + (currentIndex + 1) + "题", new PlayInfo()
                         .setQuestion(question)
-                        //.setPlayerList(players)
+                //.setPlayerList(players)
                 , WsType.QUESTION);
         log.info(res.toJsonString());
 
@@ -212,7 +212,7 @@ public final class GameWebSocketUtils {
         ResultDTO result = new ResultDTO();
         Player player = findPlayerByUserid(userId);
         if (player == null) {
-            sendMessageToUser(userId,  result.buildSucc(ResultCode.MSG, "游戏异常，请重新加入游戏",
+            sendMessageToUser(userId, result.buildSucc(ResultCode.MSG, "游戏异常，请重新加入游戏",
                     null,
                     WsType.MATCH).toJsonString());
             return;
@@ -226,7 +226,7 @@ public final class GameWebSocketUtils {
         }
 
         Integer currentScore = player.getScore();
-        player.setScore(currentScore + (res ? 1 : 0));
+        player.setScore(currentScore + (res ? 1 : -1));
         myRoom.setNumber(myRoom.getNumber() + 1);
 
         if (myRoom.getNumber().equals(2)) {
@@ -268,30 +268,29 @@ public final class GameWebSocketUtils {
     }
 
     public static void runWay(Integer userId) {
+        Player temp = findPlayerByUserid(userId);
+        if (temp == null) return;
         try {
-            Player temp = findPlayerByUserid(userId);
-            Room room = findRoomByRoomId(temp.getRoomId());
-            Player a = room.getPlayers().get(0);
-            Player b = room.getPlayers().get(1);
-            ResultDTO res = new ResultDTO();
-            res.buildSucc("用户" + temp.getUserName() + "离开，房间已解散", null, WsType.OVERGAME);
-            sendMessageToRoom(room.getId(), res.toJsonString());
-            GAME_ROOMS.remove(room);
-            ONLINE_PLAYERS.remove(a);
-            ONLINE_PLAYERS.remove(b);
-            try {
-                a.getSession().close();
-                b.getSession().close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            Long roomId = temp.getRoomId();
+            if (roomId != null) {
+                Room room = findRoomByRoomId(roomId);
+                for (Player player : room.getPlayers()) {
+                    ONLINE_PLAYERS.remove(player);
+                    player.getSession().close();
+                }
+                ResultDTO res = new ResultDTO();
+                res.buildSucc("用户" + temp.getUserName() + "离开，房间已解散", null, WsType.OVERGAME);
+                sendMessageToRoom(room.getId(), res.toJsonString());
+                GAME_ROOMS.remove(room);
+                log.info("对局结果：{}", res);
+
+            } else {
+                temp.getSession().close();
+                ONLINE_PLAYERS.remove(temp);
             }
-            log.info("对局结果：{}", res);
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        ONLINE_PLAYERS.remove(findPlayerByUserid(userId));
-
-
     }
 
     public static CopyOnWriteArrayList<Room> getAllRoom() {

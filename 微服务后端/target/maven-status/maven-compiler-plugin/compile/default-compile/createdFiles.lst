@@ -20,7 +20,9 @@ cn\touale\ve\VeApplication.class
 cn\touale\ve\entity\battle\Question.class
 cn\touale\ve\entity\preply\PreplyWorld.class
 cn\touale\ve\controller\TestController.class
+cn\touale\ve\mapper\QuestionMapper.class
 cn\touale\ve\controller\BattleController.class
+cn\touale\ve\entity\battle\PlayInfo.class
 cn\touale\ve\service\battle\BattleServer.class
 cn\touale\ve\entity\battle\BattleResult.class
 cn\touale\ve\entity\battle\PlayerStatus.class

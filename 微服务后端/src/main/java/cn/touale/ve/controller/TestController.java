@@ -22,8 +22,7 @@ import java.util.List;
 @RequestMapping("/test/")
 public class TestController {
 
-    @Autowired
-    private BattleServer battleServer;
+
 
     @Operation(summary = "测试", description = "返回0")
     @GetMapping("/get0")
@@ -31,11 +30,6 @@ public class TestController {
         return "0";
     }
 
-    @Operation(summary = "获取题目",description = "调用第三方接口，返回随机10条数据")
-    @GetMapping("/getQuestionList")
-    public List<Question> getQuestionList(@RequestParam(name = "size") Integer size) {
-        return battleServer.getQuestionsList(size);
-    }
 
 
 }

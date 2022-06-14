@@ -76,7 +76,6 @@ public class BattleController {
         // image： 头像
         // userName : 用户名
 
-
         try {
             jobj = JSON.parseObject(message);
             type = jobj.getString("type");
@@ -118,7 +117,5 @@ public class BattleController {
         log.error(session.getId(), error.getMessage());
         error.printStackTrace();
     }
-
-
 }
 
