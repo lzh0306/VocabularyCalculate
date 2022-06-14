@@ -1,6 +1,6 @@
 import json
 
-from Output_Test import get_quantity_test, load_db, get_id_list
+from Output_Test import load_db, get_id_list
 
 # Quantity_level1 = 1405
 # Quantity_level2 = 1936
@@ -8,7 +8,6 @@ from Output_Test import get_quantity_test, load_db, get_id_list
 # Quantity_level4 = 701
 # Quantity_level5 = 192
 quantities = [1405, 1936, 1141, 701, 192]
-quantity_test = get_quantity_test()
 test_level1 = []
 test_level2 = []
 test_level3 = []
