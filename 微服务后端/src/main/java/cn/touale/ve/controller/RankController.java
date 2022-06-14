@@ -1,5 +1,6 @@
 package cn.touale.ve.controller;
 
+import cn.touale.ve.config.ResultDTO;
 import cn.touale.ve.entity.rankings.Rank;
 import cn.touale.ve.service.rankings.RankingsServer;
 import io.swagger.annotations.Api;
@@ -28,5 +29,12 @@ public class RankController {
     public List<Rank> getRankings(@RequestParam(name = "size") Integer size) {
         return rankingsServer.getRankings(size);
     }
+
+    @Operation(summary = "更新排行榜积分",description = "更新Scoreboard数据")
+    @GetMapping("/updateRank")
+    public ResultDTO updateRank(@RequestParam(name = "userName") String userName, @RequestParam(name = "score") Integer score, @RequestParam(name = "image") String image) {
+        return rankingsServer.updateRank(userName,score,image);
+    }
+
 
 }
