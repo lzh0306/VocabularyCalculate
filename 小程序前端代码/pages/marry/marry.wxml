@@ -1,31 +1,57 @@
 <view wx:if="{{isMarry}}" class="marryContain">
     <image src="/images/CET.png"></image>
-    <button type="primary" bindtap="closeMarry">取消匹配{{a}}</button>
+    <button type="primary" bindtap="closeMarry">取消匹配</button>
 </view>
 
 <view wx:else class="marryContain">
+    <!-- <image src="/images/bg.jpg" style="position: absolute; z-index: -1; height: 100vh;width: 100vw;"></image> -->
+    <view class="notice">
+        <image src="/images/laba.png"></image>
+        <text style="margin-left: 10rpx;">{{msg}}</text>
+    </view>
+    <!-- <view style="width: 92%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view> -->
+    <view class="outBar">
+        <view class="inBar" animation="{{anr}}"></view>
+    </view>
     <view class="headImage">
         <view class="info">
-            <image src="/images/CET.png"></image>
-            <text>name</text>
+            <image src="{{userInfo[0].image}}"></image>
+            <text>{{userInfo[0].userName}}</text>
         </view>
-        <text style="font-size: 50rpx; line-height: 150rpx;">vs</text>
+        <image src="/images/vs.png" style="height: 80rpx; width: 80rpx;"></image>
         <view class="info">
-            <image src="/images/CET.png"></image>
-            <text>name</text>
+            <image src="{{userInfo[1].image}}"></image>
+            <text>{{userInfo[1].userName}}</text>
         </view>
     </view>
-
-    <view class="words">{{title.question}}</view>
-    <view class="answerList">
-        <view class="answer" bindtap="choose" data-answer="a" style="background: {{color[0]}};">
-            <text style="margin-left: 30rpx;">A.{{title.a}}</text>
+    <block wx:if="{{isResult}}">
+        <view class="words">{{title.question}}</view>
+        <view class="answerList">
+            <view class="answer" bindtap="choose" data-answer="a" style="background: {{color[0]}};">
+                <text>{{title.a}}</text>
+            </view>
+            <view class="answer" bindtap="choose" data-answer="b" style="background: {{color[1]}};">
+                <text>{{title.b}}</text>
+            </view>
+            <view class="answer" bindtap="choose" data-answer="c" style="background: {{color[2]}};">
+                <text>{{title.c}}</text>
+            </view>
+            <view class="answer" bindtap="choose" data-answer="d" style="background: {{color[3]}};">
+                <text>{{title.d}}</text>
+            </view>
         </view>
-        <view class="answer" bindtap="choose" data-answer="b" style="background: {{color[1]}};"> <text
-                style="margin-left: 30rpx;">B.{{title.b}}</text></view>
-        <view class="answer" bindtap="choose" data-answer="c" style="background: {{color[2]}};"> <text
-                style="margin-left: 30rpx;">C.{{title.c}}</text></view>
-        <view class="answer" bindtap="choose" data-answer="d" style="background: {{color[3]}};"> <text
-                style="margin-left: 30rpx;">D.{{title.d}}</text></view>
-    </view>
+    </block>
+    <block wx:else>
+        <view class="result">
+            <view class="winer">{{result.result}}</view>
+            <text style="margin-top: 50rpx;">{{result.users[0].userName}}的分数为：{{result.users[0].score}}</text>
+            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
+            <text style="margin-top: 50rpx;">{{result.users[1].userName}}的分数为：{{result.users[1].score}}</text>
+            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
+            <view class="btn">
+                <button bindtap="back">返回首页</button>
+                <button bindtap="oneMore">再来一局</button>
+            </view>
+        </view>
+    </block>
 </view>
