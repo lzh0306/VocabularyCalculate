@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Service
 public interface BattleServer {
-    public List<Question> getQuestionsList();
+    //public List<Question> getQuestionsList();
+    List<Question> getQuestionsList(Integer size);
 
 }

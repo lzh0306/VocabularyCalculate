@@ -1,7 +1,9 @@
 package cn.touale.ve.service.battle.impl;
 
 import cn.touale.ve.entity.battle.Question;
+import cn.touale.ve.mapper.QuestionMapper;
 import cn.touale.ve.service.battle.BattleServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,20 +16,26 @@ import java.util.List;
  */
 @Service
 public class BattleServerImpl implements BattleServer {
+
+    @Autowired
+    private QuestionMapper questionMapper;
     @Override
-    public List<Question> getQuestionsList(){
-        List<Question> questionList = new ArrayList<>();
-        for(int i = 0;i<3;i++){
-            Question temp = new Question()
-                    .setWordId(1)
-                    .setQuestion("touale")
-                    .setA("人")
-                    .setB("haha1")
-                    .setC("ad噢噢噢噢")
-                    .setD("名字")
-                    .setAnswer(3);
-            questionList.add(temp);
-        }
-        return questionList;
+    public List<Question> getQuestionsList(Integer size){
+        // Todo 2.实现数据库数据
+        return questionMapper.getQuestionList(size);
+
+//        List<Question> questionList = new ArrayList<>();
+//        for(int i = 0;i<3;i++){
+//            Question temp = new Question()
+//                    .setWordId(1)
+//                    .setQuestion("touale")
+//                    .setA("人")
+//                    .setB("haha1")
+//                    .setC("ad噢噢噢噢")
+//                    .setD("名字")
+//                    .setAnswer(3);
+//            questionList.add(temp);
+//        }
+//        return questionList;
     }
 }

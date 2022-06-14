@@ -1,28 +1,41 @@
 package cn.touale.ve.controller;
 
+import cn.touale.ve.entity.battle.Question;
 import cn.touale.ve.service.battle.BattleServer;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author Touale
  * @description testController
  * @date 2022/6/11 12:33
  */
-@Api(tags = "测试接口")
+@Api(tags = "接口测试")
 @RestController
 @RequestMapping("/test/")
 public class TestController {
 
+    @Autowired
+    private BattleServer battleServer;
 
-    @Operation(summary = "测试", description = "返回1")
+    @Operation(summary = "测试", description = "返回0")
     @GetMapping("/get0")
     public String getNodeInfoList() {
-        return "1";
+        return "0";
     }
+
+    @Operation(summary = "获取题目",description = "调用第三方接口，返回随机10条数据")
+    @GetMapping("/getQuestionList")
+    public List<Question> getQuestionList(@RequestParam(name = "size") Integer size) {
+        return battleServer.getQuestionsList(size);
+    }
+
 
 }
