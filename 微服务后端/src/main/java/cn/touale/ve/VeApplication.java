@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @MapperScan("cn.touale.ve.mapper")
 public class VeApplication {
+    //
     public static void main(String[] args) {
         SpringApplication.run(VeApplication.class,args);
     }

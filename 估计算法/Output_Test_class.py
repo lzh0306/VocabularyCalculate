@@ -1,10 +1,7 @@
 import random
 import json
 
-from Output_Test import get_test_json_from_db, get_quantity_test, load_db
-
-
-# quantity_test = get_quantity_test()
+from Output_Test import get_test_json_from_db, load_db
 
 
 class OutputTest:
@@ -63,7 +60,7 @@ class OutputTest:
 # op = OutputTest()
 # jl = op.get_jl([8,8,8,8,8])
 # print(jl)
-# jl = json.loads(jl)
+#
 # print(len(jl['data']))
 
 # print('--------')
