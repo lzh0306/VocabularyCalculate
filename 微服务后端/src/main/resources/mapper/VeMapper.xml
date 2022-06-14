@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.touale.ve.mapper.VeMapper">
+
+
+    <select id="getQuestionList" resultType="cn.touale.ve.entity.battle.Question">
+        SELECT * FROM ve.Questions order by rand() limit #{size};
+    </select>
+
+
+    <select id="getRankings" resultType="cn.touale.ve.entity.rankings.Rank">
+        SELECT * FROM ve.Scoreboard order by score desc limit #{size};
+    </select>
+
+</mapper>

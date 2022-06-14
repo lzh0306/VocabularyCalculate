@@ -1,12 +1,11 @@
 package cn.touale.ve.service.battle.impl;
 
 import cn.touale.ve.entity.battle.Question;
-import cn.touale.ve.mapper.QuestionMapper;
+import cn.touale.ve.mapper.VeMapper;
 import cn.touale.ve.service.battle.BattleServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +17,11 @@ import java.util.List;
 public class BattleServerImpl implements BattleServer {
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private VeMapper veMapper;
     @Override
     public List<Question> getQuestionsList(Integer size){
         // Todo 2.实现数据库数据
-        return questionMapper.getQuestionList(size);
+        return veMapper.getQuestionList(size);
 
 //        List<Question> questionList = new ArrayList<>();
 //        for(int i = 0;i<3;i++){
