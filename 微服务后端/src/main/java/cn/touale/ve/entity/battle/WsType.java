@@ -6,6 +6,7 @@ package cn.touale.ve.entity.battle;
  * @date 2022/6/13 14:33
  */
 public enum WsType {
+    LOGIN(-1),
     MATCH(0),
     QUESTION(1),
     OVERGAME(2),

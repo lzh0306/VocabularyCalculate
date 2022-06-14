@@ -20,7 +20,7 @@ public class ResultDTO<T> {
 
     private String msg;
 
-    private Integer type;
+    private WsType type;
 
     public ResultDTO() {
     }
@@ -53,12 +53,18 @@ public class ResultDTO<T> {
         return this;
     }
 
+    public ResultDTO<T> succ(ResultCode code) {
+        this.code = code.getCode();
+        return this;
+    }
+
+
     public ResultDTO<T> data(T data) {
         this.setData(data);
         return this;
     }
 
-    public ResultDTO<T> type(Integer type) {
+    public ResultDTO<T> type(WsType type) {
         this.setType(type);
         return this;
     }
@@ -81,7 +87,12 @@ public class ResultDTO<T> {
     }
 
     public ResultDTO<T> buildSucc(String msg, T data,WsType type) {
-        this.succ().msg(msg).data(data).type(type.getStatus());
+        this.succ().msg(msg).data(data).type(type);
+        return this;
+    }
+
+    public ResultDTO<T> buildSucc(ResultCode code,String msg, T data,WsType type) {
+        this.succ(code).msg(msg).data(data).type(type);
         return this;
     }
 

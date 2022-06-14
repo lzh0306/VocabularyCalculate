@@ -3,11 +3,16 @@ import json
 
 import pymysql
 
-quantity_test = 8  # 每级测试数目
+file_db = 'localdata\DB.txt'
+data_db = []
+for i in open(file_db):
+    i = i.split('---')
+    i[1] = int(i[1])
+    data_db = i
 
 
-def get_quantity_test():
-    return quantity_test
+# print(data_db)
+# print(data_db)
 
 
 def data_to_json(data_level):  # 将list转为json
@@ -22,14 +27,18 @@ def data_to_json(data_level):  # 将list转为json
 '''
 
 
+def con_db():
+    db = pymysql.connect(host=data_db[0], port=int(data_db[1]), user=data_db[2], passwd=data_db[3], db=data_db[4])
+    return db
+
+
 def load_db():
     list_level1 = []
     list_level2 = []
     list_level3 = []
     list_level4 = []
     list_level5 = []
-    db = pymysql.connect(host="sh-cynosdbmysql-grp-ky91abiy.sql.tencentcdb.com",
-                         port=25742, user='root', passwd='Rotoc.111', db='ve')
+    db = con_db()
     cursor = db.cursor()
     sql = "select * from Words"
     cursor.execute(sql)
@@ -102,4 +111,18 @@ def get_id_list():
     for i in l5:
         id_list_level5.append(i[0])
     return id_list_level1, id_list_level2, id_list_level3, id_list_level4, id_list_level5
+
+
 # print(get_test_json())
+# l1, l2, l3, l4, l5 = load_db()
+# print(l1)
+# print(l2)
+# db = con_db()
+# cur = db.cursor()
+# cur.execute("select top 1 from Words")
+# rs = cur.fetchall()
+# print(rs)
+#
+# print(db)
+# if db:
+#     print(1)

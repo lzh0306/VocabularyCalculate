@@ -1,12 +1,11 @@
 import pymysql
 
-from Output_Test import load_txt
+# from Output_Test import load_txt
 
-db = pymysql.connect(host="sh-cynosdbmysql-grp-ky91abiy.sql.tencentcdb.com",
-                     port=25742, user='root', passwd='Rotoc.111', db='ve')
+db = pymysql.connect()
 cursor = db.cursor()
 '''读入接口，报废'''
-l1, l2, l3, l4, l5 = load_txt()
+# l1, l2, l3, l4, l5 = load_txt()
 '''↑↑↑'''
 # for i in l1:
 #     i = i.split('---')
