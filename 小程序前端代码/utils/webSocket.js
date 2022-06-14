@@ -1,39 +1,51 @@
 
 // const host = config.websocketServer; // websocket服务器baseUrl
-let sotk = null;
 let socketOpen =false;
-function ws_connect(reMsg){
-  sotk = wx.connectSocket({
-    url: "ws://121.40.165.18:8800",
-    header: {
-      'content-type': 'application/json'
-    }
-  })
+var copySto;
 
-  sotk.onOpen(res => {
+async function ws_connect(reMsg){
+ let userId = Math.floor((Math.random()*10000000)+1);
+ let path = "/battle/"+userId
+ const  {socketTask}  = await wx.cloud.connectContainer({
+    config: {
+      env: 'prod-6gk0tj7ef34798e3',  // 微信云托管的环境ID
+    },
+    service: 'vocabularycalculate',        // 服务名
+    path: path            // 不填默认根目录
+  })
+  copySto = socketTask;
+
+  socketTask.onOpen(function (res) {
     socketOpen = true;
-    console.log('监听 WebSocket 连接打开事件。', res);
+    console.log('【WEBSOCKET】', '链接成功！')
   })
-  sotk.onClose(onClose => {
+  socketTask.onClose(function (res) {
     socketOpen = false;
-    console.log('监听 WebSocket 连接关闭事件。', onClose)
+    console.log('【WEBSOCKET】链接关闭！')
   })
-  sotk.onError(onError => {
+  socketTask.onError(onError => {
     socketOpen = true;
     console.log('监听 WebSocket 错误。错误信息', onError)
   })
 
   // 收到消息
-  sotk.onMessage(onMessage => {
-    // var data = JSON.parse(onMessage.data);
-    reMsg(onMessage);
+  socketTask.onMessage(function (res) {
+    console.log('【WEBSOCKET】', res.data)
+    let data = JSON.parse(res.data)
+    reMsg(data);
   })
 }
 
-function sendMsg(msg,success){
+function close(){
+  if(socketOpen){
+    copySto.close()
+  }
+}
+
+function sendMsg(msg){
   if (socketOpen) {
     console.log('通过 WebSocket 连接发送数据', JSON.stringify(msg))
-    sotk.send({
+    copySto.send({
       data: JSON.stringify(msg)
     }, function (res) {
       success(res)
@@ -43,3 +55,4 @@ function sendMsg(msg,success){
 
 module.exports.ws_connect = ws_connect;
 module.exports.sendMsg = sendMsg;
+module.exports.close = close

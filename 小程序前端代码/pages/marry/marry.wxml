@@ -1,9 +1,9 @@
-<view wx:if="{{0}}" class="marryContain">
+<view wx:if="{{isMarry}}" class="marryContain">
     <image src="/images/CET.png"></image>
-    <button type="primary">取消匹配</button>
+    <button type="primary" bindtap="closeMarry">取消匹配{{a}}</button>
 </view>
 
-<view wx:if="{{1}}" class="marryContain">
+<view wx:else class="marryContain">
     <view class="headImage">
         <view class="info">
             <image src="/images/CET.png"></image>
@@ -16,9 +16,16 @@
         </view>
     </view>
 
-    <view class="words">words</view>
-    <view class="answer">A.我</view>
-    <view class="answer">B.我</view>
-    <view class="answer">C.我</view>
-    <view class="answer" bindtap="send">D.我</view>
+    <view class="words">{{title.question}}</view>
+    <view class="answerList">
+        <view class="answer" bindtap="choose" data-answer="a" style="background: {{color[0]}};">
+            <text style="margin-left: 30rpx;">A.{{title.a}}</text>
+        </view>
+        <view class="answer" bindtap="choose" data-answer="b" style="background: {{color[1]}};"> <text
+                style="margin-left: 30rpx;">B.{{title.b}}</text></view>
+        <view class="answer" bindtap="choose" data-answer="c" style="background: {{color[2]}};"> <text
+                style="margin-left: 30rpx;">C.{{title.c}}</text></view>
+        <view class="answer" bindtap="choose" data-answer="d" style="background: {{color[3]}};"> <text
+                style="margin-left: 30rpx;">D.{{title.d}}</text></view>
+    </view>
 </view>

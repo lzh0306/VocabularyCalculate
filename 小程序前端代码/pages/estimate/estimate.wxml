@@ -1,12 +1,18 @@
 <view  wx:if="{{isShow}}" class="estimateContain">
-    <view class="outBar">
+<view class="mContain">
+<view class="outBar">
         <view class="inBar" style="width: {{width}};"></view>
     </view>
     <view class="words">{{word}}</view>
     <view class="choose">
-        <button style="background: gray;" bindtap="next" data-known="0">不认识</button>
+        <button type="primary" bindtap="next" data-known="0">不认识</button>
         <button type="primary" bindtap="next" data-known="1">认识</button>
     </view>
+</view>
+<view>
+</view>
+    <text>已测试{{}}个单词</text>
+    <text>得到较准确的结果至少需要测试{{}}个结果</text>
 </view>
 
 <view wx:else class="estimateContain">

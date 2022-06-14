@@ -36,10 +36,19 @@
     border-radius: 30rpx;
 }
 
+.answerList{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    width: 100%;
+    text-align: left;
+}
 .answer{
     margin-top: 2%;
     height: 100rpx;
+    margin-left: 10%;
     line-height: 100rpx;
-    width: 350rpx;
+    width: 80%;
     border-radius: 30rpx;
+    background: greenyellow;
 }

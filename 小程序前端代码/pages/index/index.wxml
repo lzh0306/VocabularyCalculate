@@ -1,11 +1,27 @@
 <view class="indexContainer">
-    <image src="/images/CET.png"	lazy-load="true" mode="aspectFit"></image>
-    <view class="function" style="margin-top: 10%;">
-        <view class="f1">词汇量估算</view>
-        <view class="btn_begin" bindtap="toEstimate">开始</view>
+    <image class="hImage" src="/images/CET.png" lazy-load="true" mode="aspectFit"></image>
+    <text class="f2">了解一下自己的英语水平吧~</text>
+
+    <view class="oFunction">
+        <view class="mFunction">
+            <view class="iFunction">
+                <image class="image" src="/images/read.png"></image>
+                <view class="f1">词汇量估算</view>
+            </view>
+            <view class="f2">快来测一下自己的单词量吧~</view>
+        </view>
+        <view class="btn_begin" bindtap="toEstimate">开始测试</view>
     </view>
-    <view class="function">
-        <view class="f1">匹配对手</view>
-        <view class="btn_begin" bindtap="toMarry">开始</view>
+
+    <view class="oFunction">
+        <view class="mFunction">
+            <view class="iFunction">
+                <image class="image" src="/images/PK.png"></image>
+                <view class="f1">匹配对手</view>
+            </view>
+            <view class="f2">快来测试一下自己的水平吧~</view>
+        </view>
+        <view class="btn_begin" bindtap="toMarry">开始测试</view>
     </view>
 </view>
+

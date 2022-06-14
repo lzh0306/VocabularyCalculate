@@ -5,9 +5,20 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    background: #f5f5f5;
+    background: white;
 }
-
+.mContain{
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background: #f5f5f5;
+    border-bottom-left-radius: 50rpx;
+    border-bottom-right-radius: 50rpx;
+    box-shadow: 4rpx 4rpx 6rpx 6rpx #E4E7ED
+}
 .outBar{
     height: 10rpx;
     width: 80%;

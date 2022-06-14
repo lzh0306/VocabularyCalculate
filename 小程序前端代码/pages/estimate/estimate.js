@@ -26,13 +26,13 @@ Page({
             url
         })
         }
-        wx.showToast({
-            title: '正在获取词汇',
-            icon: 'loading',
-            duration: 15000,
-            mask: true
-        })
-        this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
+        // wx.showToast({
+        //     title: '正在获取词汇',
+        //     icon: 'loading',
+        //     duration: 15000,
+        //     mask: true
+        // })
+        // this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
     },
 
     //获取单词
