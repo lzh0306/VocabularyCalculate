@@ -10,6 +10,8 @@
     display: flex;
     align-items: center;
 }
+
+
 .avatarUrl{
     width: 100rpx;
     height: 100rpx;

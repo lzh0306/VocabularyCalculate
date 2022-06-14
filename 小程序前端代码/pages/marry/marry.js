@@ -1,5 +1,6 @@
 // pages/marry/marry.js
 let websocket = require('../../utils/webSocket.js')
+var count
 Page({
 
     /**
@@ -7,77 +8,106 @@ Page({
      */
     data: {
         isMarry: '1',
+        isResult:'1',
         isConnect: 0,
         title: '',
-        isAnswer:0,
-        isExit:1,
-        color:["greenyellow","greenyellow","greenyellow","greenyellow"],
-        a:''
+        isAnswer: 0,
+        isExit: 1,
+        color: ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"],
+        userInfo: [],
+        anr: {},
+        msg:"暂无公告",
+        result:'',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
-        
         websocket.ws_connect(data => {
-            console.log(data) //打印常链接返回的更新内容
-            let a = JSON.stringify(data)
-            this.setData({
-                a
-            })
+            console.log(data) //打印常链接返回的更新内容 
             if (data.type == "LOGIN") {
                 this.setData({
                     isConnect: 1,
                 })
             } else if (data.type == "QUESTION") {
                 if (data.code == "1") {
-                    wx.hideLoading()
-                    wx.showToast({
-                        title: '加载中',
-                        icon:"loading",
-                        duration:100
-                      })
-                      let that = this
-                      setTimeout(function timer(){
-                          let title = data.data.question
-                          that.setData({
-                        title,
-                        isMarry: '',
-                        isAnswer:0,
-                        color:["greenyellow","greenyellow","greenyellow","greenyellow"]
-                    })
-                      },100)
+                    this.question(data)
+                    this.count(1)
+                    this.backAnimation()
                 } else {
-                    wx.showLoading({
-                        title:"等待对手答题"
-                    })
+                   this.setData({
+                       msg:data.msg
+                   })
                 }
-            } else if (data.type == "MATCH") {
-                // if (data.code == "1") {
-                //     this.setData({
-                //         isMarry: '',
-                //     })
-                // }
             } else if (data.type == "OVERGAME") {
-                this.exit("对手离开，房间已解散")
-            } else if (data.code == 1007||data.code == 1000||data.code == 1006) {
-                if(this.data.isExit){
+                this.overGame(data)
+            } else if (data == "10033") {
+                if (this.data.isExit) {
                     this.exit("连接异常，房间已解散")
                 }
-                
             }
         })
         for (let i = 1; i <= 5; i++) {
             setTimeout(this.send, i * 1000)
         }
+    },
 
+    //处理question数据
+    question(data) {
+        wx.hideLoading()
+        wx.showToast({
+            title: '加载中',
+            icon: "loading",
+            duration: 100
+        })
+        let that = this
+        setTimeout(function timer() {
+            let userId = wx.getStorageSync('userId')
+            let userInfo = []
+            if (userId == data.data.users[0].userId) {
+                userInfo = data.data.users
+            } else {
+                userInfo.push(data.data.users[1])
+                userInfo.push(data.data.users[0])
+            }
+            let title = data.data.question
+            that.setData({
+                title,
+                isMarry: '',
+                userInfo,
+                isAnswer: 0,
+                msg:data.msg,
+                color: ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"]
+            })
+            that.goAnimation()
+        }, 100)
+    },
+
+    //处理overGame数据
+    overGame(data) {
+        if (data.code == "1") {
+            wx.showToast({
+                title: data.msg,
+                icon: "none",
+                duration: 1000
+            })
+            this.setData({
+                isExit: 0,
+                msg:data.msg
+            })
+            let that = this
+            setTimeout(function timer() {
+               that.setData({
+                   isResult:'',
+                    result:data.data
+               })
+            }, 1100)
+        }
     },
 
     //发送匹配消息
     send(type = "match", answerResult = true) {
-
         if (this.data.isConnect || type != "match") {
             let userInfo = wx.getStorageSync('userInfo')
             let msg = {
@@ -94,54 +124,87 @@ Page({
         }
     },
 
-    //取消匹配
-    closeMarry() {
-        websocket.close()
-        this.exit("房间已解散")
+    //进度条动画
+    goAnimation() {
+        let option = {
+            duration: 10000, // 动画执行时间
+            timingFunction: 'ease-in' // 动画执行效果
+        };
+        var anr = wx.createAnimation(option); // 创建动画  
+        anr.width("100%").step();
+        this.setData({
+            anr: anr.export()
+        });
+    },
+    backAnimation() {
+        let option = {
+            duration: 10, // 动画执行时间
+            timingFunction: 'ease-in' // 动画执行效果
+        };
+        var anr = wx.createAnimation(option); // 创建动画  
+        anr.width("0%").step();
+        this.setData({
+            anr: anr.export()
+        });
+
+    },
+
+    //10秒倒计时计数
+    count(st){
+        if(st){
+            count = setTimeout(this.start,10000)
+        }else {
+            clearTimeout(count)
+        }
+    },
+    start(){
+        this.backAnimation()
+        this.send("play", false)
     },
 
     //获取选择答案提交
     choose(e) {
-        if(this.data.isAnswer){
-
-        }else{
-            let color = []
+        if (this.data.isAnswer) {} else {
+            this.count(0)
+            this.backAnimation()
+            let color = ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"]
             let answer = e.currentTarget.dataset.answer
-            console.log(answer)
-            switch (answer){
-                case "a":{
-                    color = ["red","greenyellow","greenyellow","greenyellow"]
+            switch (answer) {
+                case "a": {
+                    answer = 0
                     break
                 }
-                case "b":{
-                    color = ["greenyellow","red","greenyellow","greenyellow"]
+                case "b": {
+                    answer = 1
                     break
                 }
-                case "c":{
-                    color = ["greenyellow","greenyellow","red","greenyellow"]
+                case "c": {
+                    answer = 2
                     break
                 }
-                case "d":{
-                    color = ["greenyellow","greenyellow","greenyellow","red"]
+                case "d": {
+                    answer = 3
                     break
                 }
+            }
+            if (answer == this.data.title.answer) {
+                color[answer] = "#28BFA0"
+                this.send("play")
+            } else {
+                color[answer] = "#FE935B"
+                this.send("play", false)
             }
             this.setData({
                 color,
-                isAnswer:1
+                isAnswer: 1
             })
-            if (answer == this.data.title.answer) {
-                this.send("play")
-            } else {
-                this.send("play", false)
-            }
         }
     },
 
     //退出房间
     exit(msg) {
         this.setData({
-            isExit:0
+            isExit: 0
         })
         wx.showToast({
             title: msg,
@@ -154,6 +217,23 @@ Page({
                 url: '/pages/index/index',
             })
         }, 2100)
+    },
+
+    //返回首页
+    back(){
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+    },
+
+    //再来一局
+    oneMore(){
+        this.setData({
+            isMarry:"1",
+            isResult:"1",
+            isConnect:0
+        })
+        this.onLoad()
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -173,14 +253,18 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        this.closeMarry()
+        if (this.data.isExit) {
+            this.exit("房间已解散")
+        }
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        this.closeMarry()
+        if (this.data.isExit) {
+            this.exit("房间已解散")
+        }
     },
 
     /**

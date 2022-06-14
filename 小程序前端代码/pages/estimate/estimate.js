@@ -32,7 +32,7 @@ Page({
         //     duration: 15000,
         //     mask: true
         // })
-        // this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
+        this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
     },
 
     //获取单词

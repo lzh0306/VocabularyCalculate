@@ -5,6 +5,7 @@ var copySto;
 
 async function ws_connect(reMsg){
  let userId = Math.floor((Math.random()*10000000)+1);
+ wx.setStorageSync('userId', userId)
  let path = "/battle/"+userId
  const  {socketTask}  = await wx.cloud.connectContainer({
     config: {
@@ -21,11 +22,13 @@ async function ws_connect(reMsg){
   })
   socketTask.onClose(function (res) {
     socketOpen = false;
+    reMsg(10033)
     console.log('【WEBSOCKET】链接关闭！')
   })
   socketTask.onError(onError => {
     socketOpen = true;
     console.log('监听 WebSocket 错误。错误信息', onError)
+    reMsg(10033)
   })
 
   // 收到消息
