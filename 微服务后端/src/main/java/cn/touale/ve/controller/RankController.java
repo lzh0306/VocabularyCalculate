@@ -24,16 +24,16 @@ public class RankController {
     @Autowired
     private RankingsServer rankingsServer;
 
-    @Operation(summary = "获取score前20",description = "返回积分前20玩家信息")
+    @Operation(summary = "获取score前20", description = "返回积分前20玩家信息")
     @GetMapping("/getRankings")
     public List<Rank> getRankings(@RequestParam(name = "size") Integer size) {
         return rankingsServer.getRankings(size);
     }
 
-    @Operation(summary = "更新排行榜积分",description = "更新Scoreboard数据")
+    @Operation(summary = "更新排行榜积分", description = "更新Scoreboard数据")
     @GetMapping("/updateRank")
     public ResultDTO updateRank(@RequestParam(name = "userName") String userName, @RequestParam(name = "score") Integer score, @RequestParam(name = "image") String image) {
-        return rankingsServer.updateRank(userName,score,image);
+        return rankingsServer.updateRank(userName, score, image);
     }
 
 
