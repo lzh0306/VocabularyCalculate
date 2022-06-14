@@ -17,7 +17,11 @@ public enum ResultCode {
     /**
      * 超时
      */
-    TIMEOUT("-1", "", "超时");
+    TIMEOUT("-1", "", "超时")
+    ,
+    MSG("2","","消息")
+
+    ;
 
     /**
      * 错误码

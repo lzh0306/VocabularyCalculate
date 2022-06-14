@@ -19,7 +19,9 @@ public class Player {
     @JsonIgnore
     private Session session;
 
+    private String image;
     private PlayerStatus status;
     private Long roomId;
     private Integer score;
+    private String userName;
 }

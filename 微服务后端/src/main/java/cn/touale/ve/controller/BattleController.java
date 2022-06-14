@@ -1,7 +1,13 @@
 package cn.touale.ve.controller;
 
 
+import cn.touale.ve.config.ResultCode;
+import cn.touale.ve.config.ResultDTO;
+import cn.touale.ve.entity.battle.WsType;
 import cn.touale.ve.utils.GameWebSocketUtils;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -33,7 +39,7 @@ public class BattleController {
             log.info("用户连接-userId: {}", userId);
             GameWebSocketUtils.login(Integer.valueOf(userId), session);
             this.userId = Integer.valueOf(userId);
-            GameWebSocketUtils.sendMessageToSession(session, "欢迎用户" + userId);
+            GameWebSocketUtils.sendMessageToSession(session, new ResultDTO().buildSucc(ResultCode.SUCC,"登录成功",null, WsType.LOGIN).toJsonString());
         } catch (Exception e) {
             log.error("{}建立连接失败", userId);
             e.printStackTrace();
@@ -59,8 +65,26 @@ public class BattleController {
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info(userId + "发送消息:" + message);
+        JSONObject jobj;
+        String type;
 
-        String type = message;
+        // type: ping 心跳
+        //       match 匹配
+        //       play 回答问题
+
+        // answerResult ： 题目回答结果 boolean
+        // image： 头像
+        // userName : 用户名
+
+
+        try {
+            jobj = JSON.parseObject(message);
+            type = jobj.getString("type");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
 
         if (type.equals("ping")) {
             GameWebSocketUtils.sendMessageToSession(session, "pong");
@@ -68,20 +92,17 @@ public class BattleController {
         }
 
         if (type.equals("match")) {
-             GameWebSocketUtils.match(userId);
+            String image = jobj.getString("image");
+            String userName = jobj.getString("userName");
+            GameWebSocketUtils.match(userId,image,userName);
             return;
         }
 
         if (type.equals("play")) {
-            GameWebSocketUtils.play(userId, true); // ToDo 题目真实结果
+            Boolean answerResult =  jobj.getBoolean("answerResult");
+            GameWebSocketUtils.play(userId, answerResult); // ToDo 题目真实结果
             return;
         }
-
-        if (type.equals("get")) {
-            GameWebSocketUtils.play(userId, true); // ToDo 题目真实结果
-            return;
-        }
-
 
     }
 
