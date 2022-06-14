@@ -7,7 +7,7 @@ from Output_Test import load_db, get_id_list
 # Quantity_level3 = 1141
 # Quantity_level4 = 701
 # Quantity_level5 = 192
-quantities = [1405, 1936, 1141, 701, 192]
+# quantities = [1405, 1936, 1141, 701, 192]
 test_level1 = []
 test_level2 = []
 test_level3 = []

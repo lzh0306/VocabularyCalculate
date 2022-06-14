@@ -1,0 +1,24 @@
+/startTest		开始测试，post返回40个测试单词
+		返回示例:	{
+			"code": 1,
+			"msg": "success"
+			"data": [{"word": "orientation", "id": 3224},{}...]
+			}
+/outputResult	返回结果，post40个单词返回基于40个单词选择的另外40个单词
+			post80个单词返回测试结果
+		返回示例：{
+			"code": 1,
+			"msg": "success"
+			"data": 888]
+			}
+
+/updateScoreboard	接收积分数据更新积分表
+		接收示例：{"userName": "aaa",
+              			"score": 10,
+              			"image": image
+              			}
+		返回示例：{'code': 1, 'msg': 'success'}
+
+/getUserInfo	查询用户信息
+		接收示例：{"userName": "aaa"}
+		返回示例：{"userName": "aaa", "userScore": 15, "battileNumber": 4}

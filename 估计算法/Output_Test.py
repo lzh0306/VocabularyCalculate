@@ -3,7 +3,7 @@ import json
 
 import pymysql
 
-file_db = 'localdata\DB.txt'
+file_db = 'DB.txt'
 data_db = []
 for i in open(file_db):
     i = i.split('---')
@@ -111,7 +111,6 @@ def get_id_list():
     for i in l5:
         id_list_level5.append(i[0])
     return id_list_level1, id_list_level2, id_list_level3, id_list_level4, id_list_level5
-
 
 # print(get_test_json())
 # l1, l2, l3, l4, l5 = load_db()

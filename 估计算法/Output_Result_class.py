@@ -1,12 +1,18 @@
 import json
 
-from Output_Result import quantities
+# from Output_Result import quantities
 from Output_Test import get_id_list
 
 
 class OutputResult:
     def __init__(self):
         self.l1, self.l2, self.l3, self.l4, self.l5 = get_id_list()
+        self.quantities = [0, 0, 0, 0, 0]
+        self.quantities[0] = len(self.l1)
+        self.quantities[1] = len(self.l2)
+        self.quantities[2] = len(self.l3)
+        self.quantities[3] = len(self.l4)
+        self.quantities[4] = len(self.l5)
 
     def return_quantity(self, json_result):
         correct_quantity = [0, 0, 0, 0, 0]
@@ -41,7 +47,7 @@ class OutputResult:
                 elif json_result[i]['wordId'] in self.l5:
                     level_quantity[4] += 1
         for i in range(0, 5, 1):
-            word_quantity += correct_quantity[i] * quantities[i] / level_quantity[i]
+            word_quantity += correct_quantity[i] * self.quantities[i] / level_quantity[i]
         return word_quantity
 
     def return_second_test_quantity_list(self, json_result):

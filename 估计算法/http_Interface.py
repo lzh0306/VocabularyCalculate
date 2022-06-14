@@ -6,10 +6,12 @@ from flask import request
 
 from Output_Result_class import OutputResult
 from Output_Test_class import OutputTest
+from Update_Credit_class import UserInformation
 
 app = Flask(__name__)
 output_test = OutputTest()
 output_result = OutputResult()
+userInfo = UserInformation()
 
 
 @app.route('/')
@@ -51,6 +53,32 @@ def output_quantity():
         return return_result
     else:
         return 0
+
+
+# 更新积分表 {"userName": name, "score": 10, "image": image}
+@app.route('/updateScoreboard', methods=['POST'])
+def update_scoreboard():
+    json_post = request.get_json()
+    result = userInfo.update_scoreboard(json_post)
+    if result == 1:
+        return_result = {'code': 1, 'msg': 'success'}
+    else:
+        return_result = {'code': 1, 'msg': 'failure'}
+    return_result = json.dumps(return_result)
+    return return_result
+
+
+# 获取个人信息 {"userName": name}
+@app.route('/getUserInfo', methods=['POST'])
+def get_user_info():
+    json_post = request.get_json()
+    result = userInfo.get_info_by_username(json_post["userName"])
+    username = result[0][0]
+    score = result[0][1]
+    battile_number = result[0][3]
+    return_result = {'userName': username, 'userScore': score, 'battileNumber': battile_number}
+    return_result = json.dumps(return_result)
+    return return_result
 
 
 app.run(host='0.0.0.0', debug=True,
