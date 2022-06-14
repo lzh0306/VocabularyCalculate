@@ -7,6 +7,7 @@ import cn.touale.ve.constant.enumeration.RoomStatus;
 import cn.touale.ve.constant.enumeration.WsType;
 import cn.touale.ve.entity.battle.*;
 import cn.touale.ve.service.battle.BattleServer;
+import cn.touale.ve.service.rankings.RankingsServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,12 +32,18 @@ public final class GameWebSocketUtils {
 
     @Autowired
     private BattleServer battleServer;
+
+    @Autowired
+    private RankingsServer rankingsServer;
+
     public static GameWebSocketUtils gameWebSocketUtils;
+
 
     @PostConstruct
     public void init() {
         gameWebSocketUtils = this;
         gameWebSocketUtils.battleServer = this.battleServer;
+        gameWebSocketUtils.rankingsServer = this.rankingsServer;
     }
 
     public static Boolean isCanLogin(Integer userid) {
@@ -270,9 +277,14 @@ public final class GameWebSocketUtils {
                         "恭喜用户" + b.getUserName() + "胜利")
                 ).setUsers(users);
 
+
         res.buildSucc("对局结束", playerInfo, WsType.OVERGAME);
         log.info("对局结果：{}", res);
         sendMessageToRoom(room.getId(), res.toJsonString());
+        gameWebSocketUtils.rankingsServer.updateRank(a.getUserName(), a.getScore(), a.getImage());
+        gameWebSocketUtils.rankingsServer.updateRank(b.getUserName(), b.getScore(), b.getImage());
+
+
         // 清理房间
         GAME_ROOMS.remove(room);
         ONLINE_PLAYERS.remove(a);
