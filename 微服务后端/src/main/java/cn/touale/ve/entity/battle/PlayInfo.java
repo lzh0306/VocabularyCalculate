@@ -16,5 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Accessors(chain = true)
 public class PlayInfo {
     private Question question;
-    CopyOnWriteArrayList<Player> PlayerList;
+    private ArrayList<User> users;
+    private Long roomId;
+    private String result;
 }

@@ -1,5 +1,6 @@
 package cn.touale.ve.entity.battle;
 
+import cn.touale.ve.constant.enumeration.RoomStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

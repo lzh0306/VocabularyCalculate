@@ -1,18 +1,19 @@
-package cn.touale.ve.entity.battle;
+package cn.touale.ve.constant.enumeration;
 
 /**
  * @author Touale
- * @description RoomStatus
- * @date 2022/6/13 11:55
+ * @description MessageTypeEnum
+ * @date 2022/6/13 8:48
  */
-public enum RoomStatus {
+public enum PlayerStatus {
+    IN(-1),
     MATCHING(0),
     PLAYING(1),
     OVER(2),
     ;
     private Integer status;
 
-    RoomStatus(Integer status){
+    PlayerStatus(Integer status){
         this.status = status;
     }
 

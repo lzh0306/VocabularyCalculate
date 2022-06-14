@@ -1,5 +1,6 @@
 package cn.touale.ve.config;
-import cn.touale.ve.entity.battle.WsType;
+import cn.touale.ve.constant.enumeration.ResultCode;
+import cn.touale.ve.constant.enumeration.WsType;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

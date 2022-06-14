@@ -1,6 +1,6 @@
 package cn.touale.ve.service.preply.impl;
 
-import cn.touale.ve.config.ResultCode;
+import cn.touale.ve.constant.enumeration.ResultCode;
 import cn.touale.ve.config.ResultDTO;
 import cn.touale.ve.entity.preply.PreplyAnswer;
 import cn.touale.ve.entity.preply.PreplyWorld;

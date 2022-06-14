@@ -1,20 +1,20 @@
 package cn.touale.ve.utils;
 
-import cn.touale.ve.config.ResultCode;
+import cn.touale.ve.constant.enumeration.ResultCode;
 import cn.touale.ve.config.ResultDTO;
+import cn.touale.ve.constant.enumeration.PlayerStatus;
+import cn.touale.ve.constant.enumeration.RoomStatus;
+import cn.touale.ve.constant.enumeration.WsType;
 import cn.touale.ve.entity.battle.*;
 import cn.touale.ve.service.battle.BattleServer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -196,12 +196,18 @@ public final class GameWebSocketUtils {
         Question question = room.getGameInfo().getQuestionsList().get(currentIndex);
         room.getGameInfo().setIndex(currentIndex + 1);
         room.setNumber(0);
-        CopyOnWriteArrayList<Player> players = getAllPlayers();
 
+        ArrayList<User> users = new ArrayList<>();
+        for (Player player : room.getPlayers()) {
+            users.add(new User().setImage(player.getImage())
+                    .setUserId(player.getUserId())
+                    .setUserName(player.getUserName()));
+        }
 
         res.buildSucc("第" + (currentIndex + 1) + "题", new PlayInfo()
                         .setQuestion(question)
-                //.setPlayerList(players)
+                        .setUsers(users)
+                        .setRoomId(room.getId())
                 , WsType.QUESTION);
         log.info(res.toJsonString());
 
@@ -243,16 +249,28 @@ public final class GameWebSocketUtils {
         ResultDTO res = new ResultDTO();
         Player a = room.getPlayers().get(0);
         Player b = room.getPlayers().get(1);
-        res.buildSucc("对局结束", new BattleResult()
-                .setPlayer1_ID(a.getUserId())
-                .setPlayer2_ID(b.getUserId())
-                .setPlayer1_SCORE(a.getScore())
-                .setPlayer2_SCORE(b.getScore())
+
+        ArrayList<User> users = new ArrayList<>();
+
+        users.add(new User().setImage(a.getImage())
+                .setUserId(a.getUserId())
+                .setUserName(a.getUserName())
+                .setScore(a.getScore()));
+
+        users.add(new User().setImage(b.getImage())
+                .setUserId(b.getUserId())
+                .setUserName(b.getUserName())
+                .setScore(b.getScore()));
+
+
+        PlayInfo playerInfo = new PlayInfo()
                 .setResult((a.getScore() > b.getScore() ?
                         "恭喜用户" + a.getUserName() + "胜利"
                         :
                         "恭喜用户" + b.getUserName() + "胜利")
-                ), WsType.OVERGAME);
+                ).setUsers(users);
+
+        res.buildSucc("对局结束", playerInfo, WsType.OVERGAME);
         log.info("对局结果：{}", res);
         sendMessageToRoom(room.getId(), res.toJsonString());
         // 清理房间
@@ -274,13 +292,13 @@ public final class GameWebSocketUtils {
             Long roomId = temp.getRoomId();
             if (roomId != null) {
                 Room room = findRoomByRoomId(roomId);
+                ResultDTO res = new ResultDTO();
+                res.buildSucc("用户" + temp.getUserName() + "离开，房间已解散", null, WsType.OVERGAME);
+                sendMessageToRoom(room.getId(), res.toJsonString());
                 for (Player player : room.getPlayers()) {
                     ONLINE_PLAYERS.remove(player);
                     player.getSession().close();
                 }
-                ResultDTO res = new ResultDTO();
-                res.buildSucc("用户" + temp.getUserName() + "离开，房间已解散", null, WsType.OVERGAME);
-                sendMessageToRoom(room.getId(), res.toJsonString());
                 GAME_ROOMS.remove(room);
                 log.info("对局结果：{}", res);
 

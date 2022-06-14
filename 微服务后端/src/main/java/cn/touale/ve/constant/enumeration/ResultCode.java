@@ -1,4 +1,4 @@
-package cn.touale.ve.config;
+package cn.touale.ve.constant.enumeration;
 
 /**
  * @author Touale

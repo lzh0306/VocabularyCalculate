@@ -1,4 +1,4 @@
-package cn.touale.ve.entity.battle;
+package cn.touale.ve.constant.enumeration;
 
 /**
  * @author Touale

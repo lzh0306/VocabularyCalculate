@@ -1,12 +1,11 @@
 package cn.touale.ve.controller;
 
 
-import cn.touale.ve.config.ResultCode;
+import cn.touale.ve.constant.enumeration.ResultCode;
 import cn.touale.ve.config.ResultDTO;
-import cn.touale.ve.entity.battle.WsType;
+import cn.touale.ve.constant.enumeration.WsType;
 import cn.touale.ve.utils.GameWebSocketUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
