@@ -1,5 +1,6 @@
 package cn.touale.ve.controller;
 
+import cn.touale.ve.config.ResultDTO;
 import cn.touale.ve.entity.battle.Question;
 import cn.touale.ve.service.battle.BattleServer;
 import io.swagger.annotations.Api;
@@ -26,8 +27,9 @@ public class TestController {
 
     @Operation(summary = "测试", description = "返回0")
     @GetMapping("/get0")
-    public String getNodeInfoList() {
-        return "0";
+    public ResultDTO getNodeInfoList() {
+        ResultDTO res = new ResultDTO();
+        return res.buildSucc("调用成功");
     }
 
 
