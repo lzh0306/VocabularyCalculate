@@ -1,6 +1,17 @@
 server:
   port: 10000
 
+spring.datasource.url: jdbc:mysql://sh-cynosdbmysql-grp-ky91abiy.sql.tencentcdb.com:25742
+spring.datasource.username: root
+spring.datasource.password: Rotoc.111
+spring.datasource.driverClassName: com.mysql.jdbc.Driver
+
+mybatis:
+  # 指定sql映射文件位置
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.touale.ve.entity.battle
+
+
 springfox:
   documentation:
     swagger-ui:

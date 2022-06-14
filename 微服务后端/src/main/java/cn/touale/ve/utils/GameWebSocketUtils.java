@@ -161,7 +161,7 @@ public final class GameWebSocketUtils {
                     .setPlayerNumber(1)
                     .setStatus(RoomStatus.MATCHING)
                     .setGameInfo(new GameInfo()
-                            .setQuestionsList(gameWebSocketUtils.battleServer.getQuestionsList())
+                            .setQuestionsList(gameWebSocketUtils.battleServer.getQuestionsList(5))
                             .setIndex(0));
 
             myRoom.getPlayers().add(player);
