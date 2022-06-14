@@ -12,7 +12,7 @@ import javax.websocket.Session;
  * @date 2022/6/13 11:24
  */
 @Data
-@Accessors(chain =true)
+@Accessors(chain = true)
 public class Player {
     private Integer userId;
 

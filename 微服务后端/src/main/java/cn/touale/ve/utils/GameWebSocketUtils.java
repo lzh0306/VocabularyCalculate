@@ -5,6 +5,7 @@ import cn.touale.ve.config.ResultDTO;
 import cn.touale.ve.entity.battle.*;
 import cn.touale.ve.service.battle.BattleServer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -138,13 +140,13 @@ public final class GameWebSocketUtils {
 
         for (Room room : GAME_ROOMS) {
             if (room.getStatus().equals(RoomStatus.MATCHING)) {
-                log.info(userId + "进入房间" + room.getId());
+                log.info(player.getUserName() + "进入房间" + room.getId());
                 myRoom = room;
                 myRoom.getPlayers().add(player);
                 myRoom.setPlayerNumber(myRoom.getPlayerNumber() + 1);
                 player.setRoomId(myRoom.getId());
                 sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.MSG,
-                        userId + "加入房间" + myRoom.getId(),
+                        player.getUserName() + "加入房间" + myRoom.getId(),
                         null,
                         WsType.MATCH).toJsonString());
                 player.setStatus(PlayerStatus.PLAYING);
@@ -152,7 +154,7 @@ public final class GameWebSocketUtils {
                 if (myRoom.getPlayers().size() >= START_NUMBER) {
                     myRoom.setStatus(RoomStatus.PLAYING);
                     // 通知开始游戏了
-                    sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.MSG, "游戏即将开始，请选手做好准备",
+                    sendMessageToRoom(myRoom.getId(), result.buildSucc(ResultCode.SUCC, "游戏即将开始，请选手做好准备",
                             null,
                             WsType.MATCH).toJsonString());
                     sendQuestionToRoom(myRoom);
@@ -176,7 +178,7 @@ public final class GameWebSocketUtils {
             player.setStatus(PlayerStatus.PLAYING);
             GAME_ROOMS.add(myRoom);
             log.info(userId + "创建房间" + myRoom.getId());
-            sendMessageToUser(userId, result.buildSucc(ResultCode.ERROR, "匹配中...", null, WsType.MATCH).toJsonString());
+            sendMessageToUser(userId, result.buildSucc(ResultCode.MSG, "匹配中...", null, WsType.MATCH).toJsonString());
             return;
         }
         sendMessageToUser(userId, result.buildSucc(ResultCode.TIMEOUT, "匹配失败...", null, WsType.MATCH).toJsonString());
@@ -194,19 +196,32 @@ public final class GameWebSocketUtils {
         Question question = room.getGameInfo().getQuestionsList().get(currentIndex);
         room.getGameInfo().setIndex(currentIndex + 1);
         room.setNumber(0);
-        System.out.println(res.buildSucc("第" + (currentIndex + 1) + "题", question, WsType.QUESTION).toJsonString());
-        sendMessageToRoom(room.getId(), res.buildSucc("第" + (currentIndex + 1) + "题", question, WsType.QUESTION).toJsonString());
+        CopyOnWriteArrayList<Player> players = getAllPlayers();
+
+
+        res.buildSucc("第" + (currentIndex + 1) + "题", new PlayInfo()
+                        .setQuestion(question)
+                        //.setPlayerList(players)
+                , WsType.QUESTION);
+        log.info(res.toJsonString());
+
+        sendMessageToRoom(room.getId(), res.toJsonString());
     }
 
     public static void play(Integer userId, Boolean res) {
+        ResultDTO result = new ResultDTO();
         Player player = findPlayerByUserid(userId);
         if (player == null) {
-            sendMessageToUser(userId, "游戏异常，请重新加入游戏");
+            sendMessageToUser(userId,  result.buildSucc(ResultCode.MSG, "游戏异常，请重新加入游戏",
+                    null,
+                    WsType.MATCH).toJsonString());
             return;
         }
         Room myRoom = findRoomByRoomId(player.getRoomId());
         if (myRoom == null) {
-            sendMessageToUser(userId, "房间异常，请重新加入游戏");
+            sendMessageToUser(userId, result.buildSucc(ResultCode.MSG, "房间异常，请重新加入游戏",
+                    null,
+                    WsType.MATCH).toJsonString());
             return;
         }
 
@@ -218,7 +233,9 @@ public final class GameWebSocketUtils {
             sendQuestionToRoom(myRoom);
             return;
         }
-        sendMessageToUser(userId, "等待对面玩家答题");
+        sendMessageToUser(userId, result.buildSucc(ResultCode.MSG, "等待对面玩家答题",
+                null,
+                WsType.QUESTION).toJsonString());
 
     }
 
@@ -232,9 +249,9 @@ public final class GameWebSocketUtils {
                 .setPlayer1_SCORE(a.getScore())
                 .setPlayer2_SCORE(b.getScore())
                 .setResult((a.getScore() > b.getScore() ?
-                        "恭喜用户" + a.getUserId() + "胜利"
+                        "恭喜用户" + a.getUserName() + "胜利"
                         :
-                        "恭喜用户" + b.getUserId() + "胜利")
+                        "恭喜用户" + b.getUserName() + "胜利")
                 ), WsType.OVERGAME);
         log.info("对局结果：{}", res);
         sendMessageToRoom(room.getId(), res.toJsonString());
@@ -252,11 +269,12 @@ public final class GameWebSocketUtils {
 
     public static void runWay(Integer userId) {
         try {
-            Room room = findRoomByRoomId(findPlayerByUserid(userId).getRoomId());
+            Player temp = findPlayerByUserid(userId);
+            Room room = findRoomByRoomId(temp.getRoomId());
             Player a = room.getPlayers().get(0);
             Player b = room.getPlayers().get(1);
             ResultDTO res = new ResultDTO();
-            res.buildSucc("用户" + userId + "离开，房间已解散", null, WsType.OVERGAME);
+            res.buildSucc("用户" + temp.getUserName() + "离开，房间已解散", null, WsType.OVERGAME);
             sendMessageToRoom(room.getId(), res.toJsonString());
             GAME_ROOMS.remove(room);
             ONLINE_PLAYERS.remove(a);
@@ -272,7 +290,6 @@ public final class GameWebSocketUtils {
         }
 
         ONLINE_PLAYERS.remove(findPlayerByUserid(userId));
-
 
 
     }

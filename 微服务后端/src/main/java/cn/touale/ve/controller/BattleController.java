@@ -82,6 +82,7 @@ public class BattleController {
             type = jobj.getString("type");
         } catch (Exception e) {
             e.printStackTrace();
+            GameWebSocketUtils.sendMessageToSession(session, "error");
             return;
         }
 
@@ -104,6 +105,7 @@ public class BattleController {
             return;
         }
 
+        GameWebSocketUtils.sendMessageToSession(session, "error");
     }
 
     /**
