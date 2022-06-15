@@ -1,22 +1,30 @@
-<view  wx:if="{{isShow}}" class="estimateContain">
-<view class="mContain">
-<view class="outBar">
-        <view class="inBar" style="width: {{width}};"></view>
+<view wx:if="{{isShow}}" class="estimateContain">
+    <view class="mContain">
+<view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
+        <view class="topTip">
+            
+            <view class="tip">
+                <text style="color: #8A8991;">词汇量</text>
+                <text style="font-size: 29rpx;margin-top: 10rpx;">{{index}}/{{wordsList.length}}</text>
+            </view>
+            <view class="tip">
+                <text style="color: #8A8991;">测试时间</text>
+                <text style="font-size: 29rpx;margin-top: 10rpx;">{{str_time}}</text>
+            </view>
+        </view>
+        <view class="outBar">
+            <view class="inBar" style="width: {{width}};"></view>
+        </view>
+        <view class="words">{{word}}</view>
+        <view class="choose">
+            <view class="btn" bindtap="next" data-known="0">认识</view>
+            <view class="btn" style="margin-top: 56rpx;background: #FD945D;" bindtap="next" data-known="1">不认识</view>
+        </view>
     </view>
-    <view class="words">{{word}}</view>
-    <view class="choose">
-        <button type="primary" bindtap="next" data-known="0">不认识</button>
-        <button type="primary" bindtap="next" data-known="1">认识</button>
-    </view>
-</view>
-<view>
-</view>
-    <text>已测试{{}}个单词</text>
-    <text>得到较准确的结果至少需要测试{{}}个结果</text>
 </view>
 
 <view wx:else class="estimateContain">
-    <view class="score">454455</view>
+    <view class="score">{{scoreNum}}</view>
     <view class="choose">
         <button type="primary" bindtap="back">返回首页</button>
         <button type="primary" bindtap="oneMore">再来一次</button>

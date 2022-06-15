@@ -8,16 +8,16 @@ Page({
      */
     data: {
         isMarry: '1',
-        isResult:'1',
+        isResult: '1',
         isConnect: 0,
         title: '',
         isAnswer: 0,
         isExit: 1,
-        color: ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"],
+        color: ["white", "white", "white", "white"],
         userInfo: [],
         anr: {},
-        msg:"暂无公告",
-        result:'',
+        msg: "暂无公告",
+        result: '',
     },
 
     /**
@@ -34,13 +34,13 @@ Page({
                 if (data.code == "1") {
                     this.question(data)
                     this.count(1)
-                    this.backAnimation()
                 } else {
-                   this.setData({
-                       msg:data.msg
-                   })
+                    this.setData({
+                        msg: data.msg
+                    })
                 }
             } else if (data.type == "OVERGAME") {
+                this.backAnimation()
                 this.overGame(data)
             } else if (data == "10033") {
                 if (this.data.isExit) {
@@ -53,6 +53,10 @@ Page({
         }
     },
 
+    //
+    closeMarry(){
+        this.exit("已取消，退出房间")
+    },
     //处理question数据
     question(data) {
         wx.hideLoading()
@@ -77,11 +81,12 @@ Page({
                 isMarry: '',
                 userInfo,
                 isAnswer: 0,
-                msg:data.msg,
-                color: ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"]
+                msg: data.msg,
+                color: ["white", "white", "white", "white"]
             })
             that.goAnimation()
         }, 100)
+        this.backAnimation()
     },
 
     //处理overGame数据
@@ -94,14 +99,14 @@ Page({
             })
             this.setData({
                 isExit: 0,
-                msg:data.msg
+                msg: data.msg
             })
             let that = this
             setTimeout(function timer() {
-               that.setData({
-                   isResult:'',
-                    result:data.data
-               })
+                that.setData({
+                    isResult: '',
+                    result: data.data
+                })
             }, 1100)
         }
     },
@@ -150,14 +155,14 @@ Page({
     },
 
     //10秒倒计时计数
-    count(st){
-        if(st){
-            count = setTimeout(this.start,10000)
-        }else {
+    count(st) {
+        if (st) {
+            count = setTimeout(this.start, 10000)
+        } else {
             clearTimeout(count)
         }
     },
-    start(){
+    start() {
         this.backAnimation()
         this.send("play", false)
     },
@@ -167,7 +172,7 @@ Page({
         if (this.data.isAnswer) {} else {
             this.count(0)
             this.backAnimation()
-            let color = ["#BDE8DC", "#BDE8DC", "#BDE8DC", "#BDE8DC"]
+            let color = ["white", "white", "white", "white"]
             let answer = e.currentTarget.dataset.answer
             switch (answer) {
                 case "a": {
@@ -189,10 +194,18 @@ Page({
             }
             if (answer == this.data.title.answer) {
                 color[answer] = "#28BFA0"
-                this.send("play")
+                let that = this
+                setTimeout(function timer() {
+                    that.send('play')
+                }, 1000)
+
             } else {
                 color[answer] = "#FE935B"
-                this.send("play", false)
+                let that = this
+                setTimeout(function timer() {
+                    that.send('play', false)
+                }, 1000)
+
             }
             this.setData({
                 color,
@@ -220,18 +233,18 @@ Page({
     },
 
     //返回首页
-    back(){
+    back() {
         wx.switchTab({
-          url: '/pages/index/index',
+            url: '/pages/index/index',
         })
     },
 
     //再来一局
-    oneMore(){
+    oneMore() {
         this.setData({
-            isMarry:"1",
-            isResult:"1",
-            isConnect:0
+            isMarry: "1",
+            isResult: "1",
+            isConnect: 0
         })
         this.onLoad()
     },

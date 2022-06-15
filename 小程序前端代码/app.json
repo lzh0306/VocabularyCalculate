@@ -11,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "",
+    "navigationBarTitleText": "词汇测测测",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

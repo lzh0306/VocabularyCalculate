@@ -1,41 +1,69 @@
 .rankContainer {
+    position: relative;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 100vh;
     width: 100vw;
 }
 
-.nav {
-    width: 100%;
-    height: 100rpx;
+.scroll{
+    height:90%;
+    width: 96%;
+}
+.mine{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+     background: #F1FBF7;
+}
+.listContain {
+    position: relative;
+    margin-top: 20rpx;
+    width: 100%;
+    margin-left: 4%;
+    display: flex;
     align-items: center;
 }
 
-.swiper {
-    height: 100%;
-    width: 100%;
+.topImage{
+    margin-left: 10rpx;
+    margin-right: 20rpx;
+    height: 40rpx;
+    width: 40rpx;
 }
 
-.listContain {
-    margin-top: 20rpx;
-    height: 100rpx;
-    width: 80%;
-    margin-left: 10%;
-    border-radius: 20rpx;
-    background: chartreuse;
+.listContainButton{
+    position: relative;
+    width: 98%;
+    margin-left: 7%;
     display: flex;
-    flex-direction: row;
-    line-height: 100rpx;
+    align-items: center;
+   
 }
 
 .name {
-    line-height: 50rpx;
+    width: 60%;
+    margin-left: 10rpx;
+    line-height: 36rpx;
     display: flex;
     flex-direction: column;
 }
 
-.listContain image {
+image {
     margin: 10rpx;
     height: 80rpx;
     width: 80rpx;
+    border-radius: 80rpx;
+}
+
+.sign{
+    font-size: 25rpx;
+    width: 80%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color: #8A8991;
 }

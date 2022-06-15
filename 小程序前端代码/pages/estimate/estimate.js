@@ -1,6 +1,7 @@
 // pages/estimate/estimate.js
 import request from '../../utils/request'
 import config from '../../utils/config'
+var time //计时器
 Page({
 
     /**
@@ -14,25 +15,29 @@ Page({
         index: '0',
         result: [],
         width: "0",
-        url:1,
+        url: 1,
+        scoreNum:0,
+        testTime:0,
+        str_time:"0s"
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         let url = wx.getStorageSync('url')
-        if(url!=''){
+        if (url != '') {
             this.setData({
-            url
-        })
+                url
+            })
         }
-        // wx.showToast({
-        //     title: '正在获取词汇',
-        //     icon: 'loading',
-        //     duration: 15000,
-        //     mask: true
-        // })
-        this.getWords(config.url[this.data.url].getInitVe ,{}, "POST",)
+        wx.showToast({
+            title: '正在获取词汇',
+            icon: 'loading',
+            duration: 15000,
+            mask: true
+        })
+        this.getWords(config.url[this.data.url].getInitVe, {}, "GET", )
+        this.setTime()
     },
 
     //获取单词
@@ -54,16 +59,45 @@ Page({
 
     //提交数据并进行第二次申请词汇
     async commit(url, data = {}, method = 'GET') {
-        let result = await request(url, data, method)
-        console.log(data)
-        if (result.code == 1) {
+        if (this.data.url == "1") {
+            let result = await request(url, data, method)
+            console.log(result)
+            wx.hideToast()
+            let word = result.data[0].word
+            let time = this.data.time
+            time++
             this.setData({
-                wordsList: '',
-                result: []
+                word,
+                wordsList: result.data,
+                width: "0",
+                time
             })
-            let data = "midpoint=" + result.data
-            // this.getWords("/preply/getSecondVe", data, "POST", "application/x-www-form-urlencoded")
+        } else {
+            let result = await request(url, data, method)
+            console.log(data)
+            if (result.code == 1) {
+                this.setData({
+                    wordsList: '',
+                    result: []
+                })
+                let data = "midpoint=" + result.data
+                this.getWords("/preply/getSecondVe", data, "POST", "application/x-www-form-urlencoded")
+            }
         }
+
+    },
+
+    //提交获取最终结果
+    async lastCommit(url, data = {}, method = 'GET'){
+         let result = await request(url, data, method)
+         if(result.code=="1"){
+              console.log(result)
+          this.setData({
+            isShow: 0,
+            scoreNum:result.data
+        })
+         }
+       
     },
 
     //获取词汇估算结果，并进入下一个词汇
@@ -74,7 +108,7 @@ Page({
         let result = this.data.result
         let width = ((index + 1) / wordsList.length) * 100
 
-        if (known=="1") {
+        if (known == "1") {
             known = true
         } else {
             known = false
@@ -107,12 +141,11 @@ Page({
                 })
                 this.commit(config.url[this.data.url].getResult, result, "POST")
             } else {
-                this.setData({
-                    isShow: 0
-                })
+               this.lastCommit(config.url[this.data.url].getResult, result, "POST")
             }
         }
     },
+
     //返回首页
     back() {
         wx.switchTab({
@@ -122,8 +155,49 @@ Page({
 
     //再来一次
     oneMore() {
-        console.log("one more time")
+        this.setData({
+            word: '',
+            isShow: "1",
+            time: 0,
+            wordsList: '',
+            index: '0',
+            result: [],
+            width: "0",
+            url: 1,
+            scoreNum:0,
+            testTime:0,
+            str_time:"0s"
+        })
+        this.onLoad()
     },
+
+    //计时器
+    setTime(){
+        let that = this
+        time = setInterval(function tm(){
+            let testTime = that.data.testTime
+            testTime +=1
+            that.setData({
+                testTime
+            })
+            that.transerTime(testTime)
+        },1000) 
+    },
+    //转换时间
+    transerTime(num){
+        var str_time
+        if(num<60){
+            str_time = num+"s"
+        }else{
+            let s = num%60
+            let min = Math.floor(num/60)
+            str_time = min+"min"+s+"s"
+        }
+        this.setData({
+            str_time
+        })
+    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -142,7 +216,6 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
     },
 
     /**

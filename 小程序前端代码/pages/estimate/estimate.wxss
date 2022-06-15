@@ -14,41 +14,64 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    background: #f5f5f5;
     border-bottom-left-radius: 50rpx;
     border-bottom-right-radius: 50rpx;
-    box-shadow: 4rpx 4rpx 6rpx 6rpx #E4E7ED
 }
+
+.topTip{
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    font-size: 23rpx;
+}
+.tip{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
 .outBar{
-    height: 10rpx;
+    height: 1rpx;
+    margin-top: 20rpx;
     width: 80%;
-    margin-top: 18vh;
     border-radius: 10rpx;
-    background-color: chartreuse;
+    background-color:#DDDDDD;
 }
 .inBar{
-    height: 10rpx;
+    height: 4rpx;
     border-radius: 10rpx;
-    background: red;
+    background: #00C907;
 }
 .words{
     background: white;
-    margin-top: 20rpx;
+    margin-top: 120rpx;
     height: 100rpx;
     line-height: 100rpx;
-    width: 350rpx;
+    font-size: 60rpx;
+    font-weight: 1000;
+    width: 80vh;
     border-radius: 30rpx;
 }
 
 .choose{
     width: 100%;
-    margin-top: 20vh;
+    margin-top: 15vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 }
 
-.choose button{
-    width: 40%;
+.btn{
+    width: 80%;
+    margin-top: 40%;
+    height: 70rpx;
+    line-height: 70rpx;
+    border-radius: 70rpx;
+    background: #28BFA0;
+    color: white;
 }
 
 .score{
