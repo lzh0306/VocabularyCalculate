@@ -80,6 +80,6 @@ def get_user_info():
     return_result = json.dumps(return_result)
     return return_result
 
-
-app.run(host='0.0.0.0', debug=True,
-        port=int(os.environ.get('PORT', 81)), use_reloader=False)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True,
+            port=int(os.environ.get('PORT', 81)), use_reloader=False)
