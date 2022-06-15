@@ -35,21 +35,21 @@ result_level5 = []
 #                          {"rank": 511, "result": 1}, {"rank": 277, "result": 1}, {"rank": 1487, "result": 1},
 #                          {"rank": 285, "result": 1}, {"rank": 478, "result": 0}]}
 #
-json_get = [{"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
-            {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
-            {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
-            {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597},
-            {"known": "false", "wordId": 419}, {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419},
-            {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
-            {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
-            {"known": "false", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
-            {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597},
-            {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419},
-            {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
-            {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
-            {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
-            {"known": "true", "wordId": 597}
-            ]
+# json_get = [{"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
+#             {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
+#             {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
+#             {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597},
+#             {"known": "false", "wordId": 419}, {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419},
+#             {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
+#             {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
+#             {"known": "false", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
+#             {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597}, {"known": "true", "wordId": 597},
+#             {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419}, {"known": "true", "wordId": 419},
+#             {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662}, {"known": "true", "wordId": 8662},
+#             {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951}, {"known": "true", "wordId": 4951},
+#             {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124}, {"known": "true", "wordId": 2124},
+#             {"known": "true", "wordId": 597}
+#             ]
 #
 # json_get = json.dumps(json_get)
 #

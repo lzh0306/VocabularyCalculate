@@ -11,7 +11,9 @@ from Update_Credit_class import UserInformation
 app = Flask(__name__)
 output_test = OutputTest()
 output_result = OutputResult()
-userInfo = UserInformation()
+
+
+# userInfo = UserInformation()
 
 
 @app.route('/')
@@ -24,8 +26,13 @@ def hello_world():
 def start_test():
     # output_test = OutputTest()
     # output_test.update_test_json_level()
-    jl = output_test.get_jl([8, 8, 8, 8, 8])
-    return jl
+    try:
+        jl = output_test.get_jl([8, 8, 8, 8, 8])
+        return jl
+    except:
+        return_result = {'code': 0, 'msg': '处理异常'}
+        return_result = json.dumps(return_result)
+        return return_result
 
 
 # post json数据，返回词汇量估算结果
@@ -39,46 +46,53 @@ def start_test():
 def output_quantity():
     # output_result = OutputResult()
     json_post = request.get_json()
-    if len(json_post) == 40:
-        # output_result.return_second_test_quantity_list(json_post)
-        quantity_list = output_result.return_second_test_quantity_list(json_post)
-        jl = output_test.get_jl(quantity_list)
-        return jl
-    # json_post = json.dumps(json_post)
-    elif len(json_post) == 80:
-        result = output_result.return_quantity(json_post)
-        result = int(result / 1)
-        return_result = {'code': 1, 'msg': 'success', 'data': result}
-        return_result = json.dumps(return_result)
+    try:
+        if len(json_post) == 40:
+            # output_result.return_second_test_quantity_list(json_post)
+            quantity_list = output_result.return_second_test_quantity_list(json_post)
+            jl = output_test.get_jl(quantity_list)
+            return jl
+        # json_post = json.dumps(json_post)
+        elif len(json_post) == 80:
+            result = output_result.return_quantity(json_post)
+            result = int(result / 1)
+            return_result = {'code': 1, 'msg': 'success', 'data': result}
+            return_result = json.dumps(return_result)
+            return return_result
+        else:
+            return_result = {'code': 0, 'msg': '处理异常'}
+            return_result = json.dumps(return_result, ensure_ascii=False)
+            return return_result
+    except:
+        return_result = {'code': 0, 'msg': '处理异常'}
+        return_result = json.dumps(return_result, ensure_ascii=False)
         return return_result
-    else:
-        return 0
 
 
-# 更新积分表 {"userName": name, "score": 10, "image": image}
-@app.route('/updateScoreboard', methods=['POST'])
-def update_scoreboard():
-    json_post = request.get_json()
-    result = userInfo.update_scoreboard(json_post)
-    if result == 1:
-        return_result = {'code': 1, 'msg': 'success'}
-    else:
-        return_result = {'code': 1, 'msg': 'failure'}
-    return_result = json.dumps(return_result)
-    return return_result
+# # 更新积分表 {"userName": name, "score": 10, "image": image}
+# @app.route('/updateScoreboard', methods=['POST'])
+# def update_scoreboard():
+#     json_post = request.get_json()
+#     result = userInfo.update_scoreboard(json_post)
+#     if result == 1:
+#         return_result = {'code': 1, 'msg': 'success'}
+#     else:
+#         return_result = {'code': 1, 'msg': 'failure'}
+#     return_result = json.dumps(return_result)
+#     return return_result
 
 
-# 获取个人信息 {"userName": name}
-@app.route('/getUserInfo', methods=['POST'])
-def get_user_info():
-    json_post = request.get_json()
-    result = userInfo.get_info_by_username(json_post["userName"])
-    username = result[0][0]
-    score = result[0][1]
-    battile_number = result[0][3]
-    return_result = {'userName': username, 'userScore': score, 'battileNumber': battile_number}
-    return_result = json.dumps(return_result)
-    return return_result
+# # 获取个人信息 {"userName": name}
+# @app.route('/getUserInfo', methods=['POST'])
+# def get_user_info():
+#     json_post = request.get_json()
+#     result = userInfo.get_info_by_username(json_post["userName"])
+#     username = result[0][0]
+#     score = result[0][1]
+#     battile_number = result[0][3]
+#     return_result = {'userName': username, 'userScore': score, 'battileNumber': battile_number}
+#     return_result = json.dumps(return_result)
+#     return return_result
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True,

@@ -64,11 +64,21 @@ class OutputResult:
                     correct_quantity[3] += 1
                 elif json_result[i]['wordId'] in self.l5:
                     correct_quantity[4] += 1
-        # correct_quantity = [5, 4, 3, 2, 1]
+        '''
+        第二次40题修改为倾向第一次不认识较多的部分↓↓
+        '''
+        # print(correct_quantity)
+        # for i in range(0, 5, 1):
+        #     if correct_quantity[i] == 0:
+        #         correct_quantity[i] = 1
+        # for i in range(0, 5, 1):
+        #     correct_quantity[i] = 40 / correct_quantity[i]
+        # print(correct_quantity)
+        '''↑↑↑↑分割线↑↑↑↑'''
+        correct_quantity = [5, 4, 3, 2, 1]
         test_quantity = [0, 0, 0, 0, 0]
         correct_sum = 0
         word_quantity = 0
-
         for i in range(0, 5, 1):
             correct_sum += correct_quantity[i]
         for i in range(0, 5, 1):
@@ -85,5 +95,8 @@ class OutputResult:
             test_quantity[index_max] += 40 - test_sum
         return test_quantity
 
+
+# test =
+#
 # outputResult = OutputResult()
-# outputResult.return_second_test(0)
+# print(outputResult.return_second_test_quantity_list(test))
