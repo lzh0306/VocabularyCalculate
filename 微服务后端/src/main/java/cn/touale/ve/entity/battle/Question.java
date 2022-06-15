@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
  * @date 2022/6/13 9:50
  */
 @Data
-@Accessors(chain =true)
+@Accessors(chain = true)
 public class Question {
     private Integer wordId;
     private String question;

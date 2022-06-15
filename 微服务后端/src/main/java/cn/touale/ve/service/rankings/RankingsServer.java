@@ -11,8 +11,11 @@ public interface RankingsServer {
     List<Rank> getRankings(Integer size);
 
     List<Rank> getOneRanking(String userName);
-    boolean insertRanking(String userName,Integer score,String image);
+
+    boolean insertRanking(String userName, Integer score, String image);
+
     boolean updateRanking(String userName, Integer score);
+
     ResultDTO updateRank(String userName, Integer score, String image);
 
 }

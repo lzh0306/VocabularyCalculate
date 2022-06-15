@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @date 2022/6/13 11:22
  */
 @Data
-@Accessors(chain =true)
+@Accessors(chain = true)
 public class Room {
     private Long id;
     private RoomStatus status; // 0 匹配中，1 游戏中，2 结束

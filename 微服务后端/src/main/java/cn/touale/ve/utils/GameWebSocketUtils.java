@@ -277,6 +277,11 @@ public final class GameWebSocketUtils {
                         "恭喜用户" + b.getUserName() + "胜利")
                 ).setUsers(users);
 
+        if (a.getScore() > b.getScore()) {
+            a.setScore(a.getScore() + 5);
+        } else {
+            b.setScore(b.getScore() + 5);
+        }
 
         res.buildSucc("对局结束", playerInfo, WsType.OVERGAME);
         log.info("对局结果：{}", res);

@@ -32,7 +32,7 @@ public class PreplyController {
 
     @Operation(summary = "上传单词回答结果", description = "上传单词回答结果，返回初步判断估算量")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "preplyAnswerList", value = "用户答题结果", dataTypeClass = PreplyAnswer.class,paramType = "query")})
+            @ApiImplicitParam(name = "preplyAnswerList", value = "用户答题结果", dataTypeClass = PreplyAnswer.class, paramType = "query")})
     @PostMapping("/getResult")
     public ResultDTO getResult(@RequestBody List<PreplyAnswer> preplyAnswerList) {
         return preplyServer.getResult(preplyAnswerList);
@@ -40,7 +40,7 @@ public class PreplyController {
 
     @Operation(summary = "获取二级单词列表", description = "获取二级单词列表，提高结果准确率")
     @PostMapping("/getSecondVe")
-    public ResultDTO getSecondVe(Integer midpoint){
-        return preplyServer.getSecondVe (midpoint);
+    public ResultDTO getSecondVe(Integer midpoint) {
+        return preplyServer.getSecondVe(midpoint);
     }
 }

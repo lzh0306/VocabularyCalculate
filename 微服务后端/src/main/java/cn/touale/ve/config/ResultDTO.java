@@ -1,10 +1,10 @@
 package cn.touale.ve.config;
+
 import cn.touale.ve.constant.enumeration.ResultCode;
 import cn.touale.ve.constant.enumeration.WsType;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
-
 
 
 /**
@@ -87,12 +87,12 @@ public class ResultDTO<T> {
         return this;
     }
 
-    public ResultDTO<T> buildSucc(String msg, T data,WsType type) {
+    public ResultDTO<T> buildSucc(String msg, T data, WsType type) {
         this.succ().msg(msg).data(data).type(type);
         return this;
     }
 
-    public ResultDTO<T> buildSucc(ResultCode code,String msg, T data,WsType type) {
+    public ResultDTO<T> buildSucc(ResultCode code, String msg, T data, WsType type) {
         this.succ(code).msg(msg).data(data).type(type);
         return this;
     }

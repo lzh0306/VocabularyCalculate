@@ -24,14 +24,12 @@ import java.util.List;
 public class TestController {
 
 
-
     @Operation(summary = "测试", description = "返回0")
     @GetMapping("/get0")
     public ResultDTO getNodeInfoList() {
         ResultDTO res = new ResultDTO();
         return res.buildSucc("调用成功");
     }
-
 
 
 }

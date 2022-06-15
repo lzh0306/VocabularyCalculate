@@ -16,6 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class VeApplication {
     //
     public static void main(String[] args) {
-        SpringApplication.run(VeApplication.class,args);
+        SpringApplication.run(VeApplication.class, args);
     }
 }

@@ -6,6 +6,7 @@ import okhttp3.*;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 /**
  * @author Touale
  * @description OkHttpUtil
@@ -14,10 +15,11 @@ import java.util.concurrent.TimeUnit;
 public class OkHttpUtil {
     /**
      * 根据map获取get请求参数
+     *
      * @param queries
      * @return
      */
-    public static StringBuffer getQueryString(String url,Map<String,String> queries){
+    public static StringBuffer getQueryString(String url, Map<String, String> queries) {
         StringBuffer sb = new StringBuffer(url);
         if (queries != null && queries.keySet().size() > 0) {
             boolean firstFlag = true;
@@ -37,10 +39,11 @@ public class OkHttpUtil {
 
     /**
      * 调用okhttp的newCall方法
+     *
      * @param request
      * @return
      */
-    private static String execNewCall(Request request){
+    private static String execNewCall(Request request) {
         Response response = null;
         try {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -65,12 +68,13 @@ public class OkHttpUtil {
 
     /**
      * get
+     *
      * @param url     请求的url
      * @param queries 请求的参数，在浏览器？后面的数据，没有可以传null
      * @return
      */
     public static String get(String url, Map<String, String> queries) {
-        StringBuffer sb = getQueryString(url,queries);
+        StringBuffer sb = getQueryString(url, queries);
         Request request = new Request.Builder()
                 .url(sb.toString())
                 .build();
@@ -113,11 +117,11 @@ public class OkHttpUtil {
      * 参数二：请求的JSON
      * 参数三：请求回调
      */
-    public static String postJsonParams(String url, String jsonParams,String cookie) {
+    public static String postJsonParams(String url, String jsonParams, String cookie) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonParams);
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("cookie",cookie)
+                .addHeader("cookie", cookie)
                 .post(requestBody)
                 .build();
         return execNewCall(request);

@@ -66,22 +66,22 @@ public class PreplyServerImpl implements PreplyServer {
         String res;
         Integer testyourvocabCalculateMidpoint;
 
-        try{
+        try {
             JSONObject temp = new JSONObject();
-            temp.put("answers",JSON.toJSON(preplyAnswerList));
+            temp.put("answers", JSON.toJSON(preplyAnswerList));
             JSONObject jobj = new JSONObject();
             jobj.put("operationName", "TestYourVocabCalculateMidpoint");
-            jobj.put("query",query);
-            jobj.put("variables",temp);
+            jobj.put("query", query);
+            jobj.put("variables", temp);
             res = jobj.toJSONString();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultDTO.buildFail(ResultCode.ERROR, "解析失败");
         }
 
-        try{
-            res = OkHttpUtil.postJsonParams(resUrl,res,"");
-        }catch(Exception e){
+        try {
+            res = OkHttpUtil.postJsonParams(resUrl, res, "");
+        } catch (Exception e) {
             e.printStackTrace();
             return resultDTO.buildFail(ResultCode.ERROR, "加载失败");
         }
@@ -89,7 +89,7 @@ public class PreplyServerImpl implements PreplyServer {
         try {
             JSONObject jobj = JSON.parseObject(res);
             testyourvocabCalculateMidpoint = jobj.getJSONObject("data").getInteger("testyourvocabCalculateMidpoint");
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return resultDTO.buildFail(ResultCode.ERROR, "处理数据异常");
         }
@@ -100,10 +100,10 @@ public class PreplyServerImpl implements PreplyServer {
     @Override
     public ResultDTO getSecondVe(Integer midpoint) {
         ResultDTO resultDTO = new ResultDTO();
-        String res = "{\"variables\":{\"midpoint\":"+midpoint+"},\"operationName\":\"TestYourVocabStepTwoWords\",\"query\":\"\\n    query TestYourVocabStepTwoWords($midpoint: Int!) {\\n        testyourvocabStepTwoWords(midpoint: $midpoint) {\\n            value\\n            word_id\\n        }\\n    }\\n\"}";
-        try{
-            res = OkHttpUtil.postJsonParams(resUrl,res,"");
-        }catch(Exception e){
+        String res = "{\"variables\":{\"midpoint\":" + midpoint + "},\"operationName\":\"TestYourVocabStepTwoWords\",\"query\":\"\\n    query TestYourVocabStepTwoWords($midpoint: Int!) {\\n        testyourvocabStepTwoWords(midpoint: $midpoint) {\\n            value\\n            word_id\\n        }\\n    }\\n\"}";
+        try {
+            res = OkHttpUtil.postJsonParams(resUrl, res, "");
+        } catch (Exception e) {
             e.printStackTrace();
             return resultDTO.buildFail(ResultCode.ERROR, "加载失败");
         }

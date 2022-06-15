@@ -13,7 +13,7 @@ public enum PlayerStatus {
     ;
     private Integer status;
 
-    PlayerStatus(Integer status){
+    PlayerStatus(Integer status) {
         this.status = status;
     }
 

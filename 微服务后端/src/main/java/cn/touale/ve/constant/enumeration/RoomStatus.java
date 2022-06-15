@@ -12,7 +12,7 @@ public enum RoomStatus {
     ;
     private Integer status;
 
-    RoomStatus(Integer status){
+    RoomStatus(Integer status) {
         this.status = status;
     }
 

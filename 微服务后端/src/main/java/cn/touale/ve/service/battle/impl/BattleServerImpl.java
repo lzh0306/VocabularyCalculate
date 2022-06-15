@@ -18,8 +18,9 @@ public class BattleServerImpl implements BattleServer {
 
     @Autowired
     private VeMapper veMapper;
+
     @Override
-    public List<Question> getQuestionsList(Integer size){
+    public List<Question> getQuestionsList(Integer size) {
         // Todo 2.实现数据库数据
         return veMapper.getQuestionList(size);
 

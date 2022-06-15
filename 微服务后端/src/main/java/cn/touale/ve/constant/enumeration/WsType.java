@@ -13,10 +13,12 @@ public enum WsType {
     ;
 
     private Integer status;
-    WsType(Integer status){
+
+    WsType(Integer status) {
         this.status = status;
     }
-    public Integer getStatus(){
+
+    public Integer getStatus() {
         return status;
     }
 
