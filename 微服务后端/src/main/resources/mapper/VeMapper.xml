@@ -30,8 +30,7 @@
 
     <update id="updateRanking" parameterType="cn.touale.ve.entity.rankings.Rank">
         UPDATE ve.Scoreboard
-        SET score         = #{score} + score,
-            battileNumber = battileNumber + 1
+        SET score = #{score} + score,image = #{image},battileNumber = battileNumber + 1
         where userName = #{userName};
     </update>
 

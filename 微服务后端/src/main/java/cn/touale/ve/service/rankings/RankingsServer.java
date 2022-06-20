@@ -14,7 +14,7 @@ public interface RankingsServer {
 
     boolean insertRanking(String userName, Integer score, String image);
 
-    boolean updateRanking(String userName, Integer score);
+    boolean updateRanking(String userName, Integer score,String image);
 
     ResultDTO updateRank(String userName, Integer score, String image);
 

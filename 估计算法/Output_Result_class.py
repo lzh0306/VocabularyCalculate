@@ -75,7 +75,6 @@ class OutputResult:
         #     correct_quantity[i] = 40 / correct_quantity[i]
         # print(correct_quantity)
         '''↑↑↑↑分割线↑↑↑↑'''
-        correct_quantity = [5, 4, 3, 2, 1]
         test_quantity = [0, 0, 0, 0, 0]
         correct_sum = 0
         word_quantity = 0

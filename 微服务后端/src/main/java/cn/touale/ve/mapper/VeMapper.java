@@ -21,6 +21,6 @@ public interface VeMapper {
     boolean insertRanking(@Param("userName") String userName, @Param("score") Integer score, @Param("image") String image);
 
     //更新积分表数据
-    boolean updateRanking(@Param("userName") String userName, @Param("score") Integer score);
+    boolean updateRanking(@Param("userName") String userName, @Param("score") Integer score,@Param("image") String image);
 
 }

@@ -30,8 +30,8 @@ public class RankingsServerImpl implements RankingsServer {
     }
 
     @Override
-    public boolean updateRanking(String userName, Integer score) {
-        return veMapper.updateRanking(userName, score);
+    public boolean updateRanking(String userName, Integer score,String image) {
+        return veMapper.updateRanking(userName, score,image);
     }
 
 
@@ -41,9 +41,18 @@ public class RankingsServerImpl implements RankingsServer {
         List<Rank> temp = getOneRanking(userName);
         try {
             if (temp.size() > 0) {
-                updateRanking(userName, score);
+                Rank point = temp.get(0);
+                if(point.getScore()+score<0) {
+                    updateRanking(userName, -point.getScore(),image);
+                } else {
+                    updateRanking(userName, score,image);
+                }
             } else {
-                insertRanking(userName, score, image);
+                if(score<0){
+                    insertRanking(userName, 0, image);
+                } else {
+                    insertRanking(userName,score,image);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
