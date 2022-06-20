@@ -8,17 +8,20 @@
     width: 100vw;
 }
 
-.scroll{
-    height:90%;
+.scroll {
+    height: 90%;
     width: 96%;
 }
-.mine{
+
+.mine {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20vh;
-     background: #F1FBF7;
+    height: 10vh;
+    width: 100%;
+    background: #F1FBF7;
 }
+
 .listContain {
     position: relative;
     margin-top: 20rpx;
@@ -28,20 +31,19 @@
     align-items: center;
 }
 
-.topImage{
+.topImage {
     margin-left: 10rpx;
-    margin-right: 20rpx;
     height: 40rpx;
     width: 40rpx;
 }
 
-.listContainButton{
+.listContainButton {
     position: relative;
     width: 98%;
     margin-left: 7%;
     display: flex;
     align-items: center;
-   
+
 }
 
 .name {
@@ -52,18 +54,21 @@
     flex-direction: column;
 }
 
-image {
-    margin: 10rpx;
+.image {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
     height: 80rpx;
     width: 80rpx;
     border-radius: 80rpx;
 }
 
-.sign{
+.sign {
     font-size: 25rpx;
     width: 80%;
     overflow: hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #8A8991;
 }

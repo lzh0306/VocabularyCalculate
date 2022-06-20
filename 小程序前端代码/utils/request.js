@@ -22,36 +22,36 @@
 
 import config from './config'
 export default async (url, data = {}, method = 'GET', CType = 'application/json') => {
-  const res = await wx.cloud.callContainer({
-    config: {
-      env: 'prod-6gk0tj7ef34798e3',
-    },
-    data: data,
-    path: url, // 填入业务自定义路径和参数
-    method,
-    header: {
-      'X-WX-SERVICE': 'vocabularycalculate', // 填入服务名称（微信云托管 - 服务管理 - 服务列表 - 服务名称）
-      "Content-Type": CType
-    }
-  });
-  return res.data
-  // return new Promise((resolve, reject) => {
-  //   // 1. new Promise初始化promise实例的状态为pending
-  //   wx.request({
-  //     url: config.host + url,
-  //     data,
-  //     method,
-  //     header: {
-  //       "Content-Type": CType
-  //     },
-  //     success: (res) => {
-  //       // console.log('请求成功: ', res);
-  //       resolve(res.data); // resolve修改promise的状态为成功状态resolved
-  //     },
-  //     fail: (err) => {
-  //       // console.log('请求失败: ', err);
-  //       reject(err); // reject修改promise的状态为失败状态 rejected
-  //     }
-  //   })
-  // })
+    const res = await wx.cloud.callContainer({
+        config: {
+            env: 'prod-6gk0tj7ef34798e3',
+        },
+        data: data,
+        path: url, // 填入业务自定义路径和参数
+        method,
+        header: {
+            'X-WX-SERVICE': 'vocabularycalculate', // 填入服务名称（微信云托管 - 服务管理 - 服务列表 - 服务名称）
+            "Content-Type": CType
+        }
+    });
+    return res.data
+    // return new Promise((resolve, reject) => {
+    //   // 1. new Promise初始化promise实例的状态为pending
+    //   wx.request({
+    //     url: config.host + url,
+    //     data,
+    //     method,
+    //     header: {
+    //       "Content-Type": CType
+    //     },
+    //     success: (res) => {
+    //       // console.log('请求成功: ', res);
+    //       resolve(res.data); // resolve修改promise的状态为成功状态resolved
+    //     },
+    //     fail: (err) => {
+    //       // console.log('请求失败: ', err);
+    //       reject(err); // reject修改promise的状态为失败状态 rejected
+    //     }
+    //   })
+    // })
 }

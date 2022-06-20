@@ -1,20 +1,25 @@
 <view class="personalContainer">
     <view class="userInfo">
         <image wx:if="{{userInfo.avatarUrl}}" class="avatarUrl" src="{{userInfo.avatarUrl}}"></image>
-        <button class="getProfile" wx:else bindtap="getUserProfile" >获取授权信息</button>
+        <block wx:else >
+        <image class="avatarUrl" src="/images/CET.png"></image>
+        <text class="userName">游客</text>
+        <text class="wel" bindtap="getUserProfile">点击登录</text>
+        </block>
+        
         <view wx:if="{{userInfo.avatarUrl}}" class="nameText">
-            <text class="userName" style="font-size: 40rpx; margin-left: 20rpx;">{{userInfo.nickName}}</text>
-            <text style="margin-top: 10rpx; font-size: 30rpx;margin-left: 20rpx;color: rgb(94, 90, 90);" >欢迎使用小程序！</text>
+            <text class="userName">{{userInfo.nickName}}</text>
+            <text class="wel">欢迎使用小程序！</text>
         </view>
     </view>
     <view class="functionList">
-    <view class="btnlist" bindtap="toSetting">
+        <view class="btnlist" bindtap="toSetting">
             <text style="margin-left: 10rpx;">基础设置</text>
             <text class="more">></text>
         </view>
     </view>
-    
-    <view wx:if="{{userInfo.nickName}}" class="signOut" bindtap="goOut" >
-         <text style="margin-left: 10rpx;">退出账号</text>
+
+    <view wx:if="{{userInfo.nickName}}" class="signOut" bindtap="goOut">
+        <text style="margin-left: 10rpx;">退出账号</text>
     </view>
 </view>

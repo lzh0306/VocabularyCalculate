@@ -9,9 +9,9 @@ Page({
     data: {
         rankings: [],
         userInfo: '',
-        isRefresh:'',
-        rank:'999',
-        score:'0',    
+        isRefresh: '',
+        rank: '',
+        score: '0',
     },
 
     /**
@@ -19,12 +19,12 @@ Page({
      */
     onLoad: function (options) {
         let rankings = wx.getStorageSync('rankings')
-        if(rankings==""){
+        if (rankings == "") {
             this.getRankings()
-        }else{
+        } else {
             this.setData({
-            rankings
-        })
+                rankings
+            })
         }
         this.getUserRank()
     },
@@ -33,16 +33,25 @@ Page({
     getUserRank() {
         let rankings = this.data.rankings
         let userInfo = wx.getStorageSync('userInfo')
-        for(var i = 0;i<rankings.length;i++){
+        for (var i = 0; i < rankings.length; i++) {
             if (rankings[i].userName == userInfo.nickName) {
-                let rank = i+1
+                let rank = i + 1
                 this.setData({
-                    userInfo:rankings[i],
+                    userInfo: rankings[i],
+                    rank
+                })
+            }
+            if (this.data.rank == '') {
+                let rank = 100
+                userInfo.image = userInfo.avatarUrl
+                userInfo.userName = userInfo.nickName
+                userInfo.score = 0
+                this.setData({
+                    userInfo,
                     rank
                 })
             }
         }
-        
     },
 
     //获取排行榜
@@ -53,9 +62,9 @@ Page({
         }
         wx.showToast({
             title: '正在加载',
-            icon:'loading',
-            duration:15000
-          })
+            icon: 'loading',
+            duration: 15000
+        })
         let result = await request(config.url[url].getRankings, data, "GET")
         wx.hideToast()
         this.setData({
@@ -64,7 +73,7 @@ Page({
         this.getUserRank()
         wx.setStorageSync('rankings', result)
     },
- 
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -99,7 +108,7 @@ Page({
     onPullDownRefresh: function () {
         this.getRankings()
         this.setData({
-            isRefresh:false
+            isRefresh: false
         })
     },
 

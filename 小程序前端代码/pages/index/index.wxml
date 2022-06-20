@@ -19,9 +19,8 @@
                 <image class="image" src="/images/PK.png"></image>
                 <view class="f1">匹配对手</view>
             </view>
-            <view class="f2">快来测试一下自己的水平吧~</view>
+            <view class="f2">快来挑战一下自我吧~</view>
         </view>
-        <view class="btn_begin" bindtap="toMarry">开始测试</view>
+        <view class="btn_begin" bindtap="toMarry">开始匹配</view>
     </view>
 </view>
-

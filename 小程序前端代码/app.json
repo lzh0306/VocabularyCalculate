@@ -11,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "词汇测测测",
+    "navigationBarTitleText": "词汇鼓",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -27,8 +27,8 @@
     {
       "pagePath": "pages/rank/rank",
       "text": "排名",
-      "iconPath": "/images/tab-home.png",
-      "selectedIconPath": "/images/tab-home-current.png"
+      "iconPath": "/images/paiming.png",
+      "selectedIconPath": "/images/paiming-current.png"
     },
     {
       "pagePath": "pages/personal/personal",

@@ -1,8 +1,7 @@
 <view wx:if="{{isShow}}" class="estimateContain">
     <view class="mContain">
-<view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
+        <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
         <view class="topTip">
-            
             <view class="tip">
                 <text style="color: #8A8991;">词汇量</text>
                 <text style="font-size: 29rpx;margin-top: 10rpx;">{{index}}/{{wordsList.length}}</text>
@@ -17,16 +16,30 @@
         </view>
         <view class="words">{{word}}</view>
         <view class="choose">
-            <view class="btn" bindtap="next" data-known="0">认识</view>
-            <view class="btn" style="margin-top: 56rpx;background: #FD945D;" bindtap="next" data-known="1">不认识</view>
+            <view class="btn" bindtap="next" data-known="1">认识</view>
+            <view class="btn" style="margin-top: 56rpx;background: #FD945D;" bindtap="next" data-known="0">不认识</view>
         </view>
     </view>
 </view>
 
 <view wx:else class="estimateContain">
-    <view class="score">{{scoreNum}}</view>
-    <view class="choose">
-        <button type="primary" bindtap="back">返回首页</button>
-        <button type="primary" bindtap="oneMore">再来一次</button>
+    <view style="width: 100%;height: 100%; display: flex;justify-content: center;align-items: center; background: #EDEDED;">
+
+        <view class="result">
+            <text class="resultStyle">词汇量测试结果</text>
+            <image class="pipei" src="/images/mianbao.png"></image>
+            <!-- <text  style="margin-top: 50rpx;  width: 40vh; font-size: 40rpx; color: #74685D;">您的单词量</text> -->
+            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10%;"></view>
+            <text class="words" style="margin-top: 50rpx;  width: 40vh; font-size: 100rpx; color: #FF9B25;">{{scoreNum}}</text>
+            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 40rpx;"></view>
+            <view class="btn_result">
+                
+                <view class="btn_button"  bindtap="oneMore">重新测试</view>
+                <view class="btn_button" style="background: #FD945D;" bindtap="back">返回首页</view>
+            </view>
+        </view>
+
     </view>
+
+
 </view>

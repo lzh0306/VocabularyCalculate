@@ -16,9 +16,9 @@ Page({
         result: [],
         width: "0",
         url: 1,
-        scoreNum:0,
-        testTime:0,
-        str_time:"0s"
+        scoreNum: 0,
+        testTime: 0,
+        str_time: "0s"
     },
     /**
      * 生命周期函数--监听页面加载
@@ -61,7 +61,6 @@ Page({
     async commit(url, data = {}, method = 'GET') {
         if (this.data.url == "1") {
             let result = await request(url, data, method)
-            console.log(result)
             wx.hideToast()
             let word = result.data[0].word
             let time = this.data.time
@@ -74,7 +73,6 @@ Page({
             })
         } else {
             let result = await request(url, data, method)
-            console.log(data)
             if (result.code == 1) {
                 this.setData({
                     wordsList: '',
@@ -84,66 +82,74 @@ Page({
                 this.getWords("/preply/getSecondVe", data, "POST", "application/x-www-form-urlencoded")
             }
         }
-
     },
 
     //提交获取最终结果
-    async lastCommit(url, data = {}, method = 'GET'){
-         let result = await request(url, data, method)
-         if(result.code=="1"){
-              console.log(result)
-          this.setData({
-            isShow: 0,
-            scoreNum:result.data
+    async lastCommit(url, data = {}, method = 'GET') {
+        wx.showToast({
+            title: '正在提交结果',
+            icon: 'loading',
+            duration: 15000,
+            mask: true
         })
-         }
-       
+        let result = await request(url, data, method)
+        if (result.code == "1") {
+            wx.hideToast()
+            this.setData({
+                isShow: 0,
+                scoreNum: result.data
+            })
+        }
+
     },
 
     //获取词汇估算结果，并进入下一个词汇
     next(e) {
-        let known = e.currentTarget.dataset.known
-        let index = this.data.index
-        let wordsList = this.data.wordsList
-        let result = this.data.result
-        let width = ((index + 1) / wordsList.length) * 100
+        if (this.data.isShow) {
+            let known = e.currentTarget.dataset.known
+            let index = this.data.index
+            let wordsList = this.data.wordsList
+            let result = this.data.result
+            let width = ((index + 1) / wordsList.length) * 100
 
-        if (known == "1") {
-            known = true
-        } else {
-            known = false
-        }
-        let add = {
-            "known": known,
-            "wordId": wordsList[index].id
-        }
-        result.push(add)
-        index++
-        if (index < wordsList.length) {
-            this.setData({
-                index,
-                result,
-                word: wordsList[index].word,
-                width: width + "%"
-            })
-        } else {
-            this.setData({
-                width: width + "%",
-                index: 0,
-            })
-            let time = this.data.time
-            if (time < 2) {
-                wx.showToast({
-                    title: '正在获取词汇',
-                    icon: 'loading',
-                    duration: 15000,
-                    mask: true
-                })
-                this.commit(config.url[this.data.url].getResult, result, "POST")
+            if (known == "1") {
+                known = true
             } else {
-               this.lastCommit(config.url[this.data.url].getResult, result, "POST")
+                known = false
+            }
+            let add = {
+                "known": known,
+                "wordId": wordsList[index].id
+            }
+            result.push(add)
+            index++
+            if (index < wordsList.length) {
+                this.setData({
+                    index,
+                    result,
+                    word: wordsList[index].word,
+                    width: width + "%"
+                })
+            } else {
+                this.setData({
+                    width: width + "%",
+                    index: 0,
+                })
+                let time = this.data.time
+                if (time < 2) {
+                    wx.showToast({
+                        title: '正在获取词汇',
+                        icon: 'loading',
+                        duration: 15000,
+                        mask: true
+                    })
+                    this.commit(config.url[this.data.url].getResult, result, "POST")
+                } else {
+                    this.lastCommit(config.url[this.data.url].getResult, result, "POST")
+                }
             }
         }
+
     },
 
     //返回首页
@@ -164,34 +170,35 @@ Page({
             result: [],
             width: "0",
             url: 1,
-            scoreNum:0,
-            testTime:0,
-            str_time:"0s"
+            scoreNum: 0,
+            testTime: 0,
+            str_time: "0s"
         })
+        clearInterval(time)
         this.onLoad()
     },
 
     //计时器
-    setTime(){
+    setTime() {
         let that = this
-        time = setInterval(function tm(){
+        time = setInterval(function tm() {
             let testTime = that.data.testTime
-            testTime +=1
+            testTime += 1
             that.setData({
                 testTime
             })
             that.transerTime(testTime)
-        },1000) 
+        }, 1000)
     },
     //转换时间
-    transerTime(num){
+    transerTime(num) {
         var str_time
-        if(num<60){
-            str_time = num+"s"
-        }else{
-            let s = num%60
-            let min = Math.floor(num/60)
-            str_time = min+"min"+s+"s"
+        if (num < 60) {
+            str_time = num + "s"
+        } else {
+            let s = num % 60
+            let min = Math.floor(num / 60)
+            str_time = min + "min" + s + "s"
         }
         this.setData({
             str_time
@@ -215,8 +222,7 @@ Page({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function () {
-    },
+    onHide: function () {},
 
     /**
      * 生命周期函数--监听页面卸载

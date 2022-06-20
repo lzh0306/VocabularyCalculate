@@ -14,12 +14,12 @@ Page({
      */
     onLoad: function (options) {
         let url = wx.getStorageSync('url')
-        if(url!=''){
+        if (url != '') {
             this.setData({
-            url
-        })
+                url
+            })
         }
-        
+
     },
     changeTnterface(e) {
         let url = e.detail.value

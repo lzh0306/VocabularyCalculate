@@ -4,8 +4,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    /* text-align: center; */
     font-size: 27rpx;
+}
+
+.pipei {
+    width: 80vw;
+    height: 40vh;
+    margin-top: 10vh;
 }
 
 .headImage {
@@ -20,32 +26,34 @@
     background: #F1FBF7;
 }
 
-.notice{
+.notice {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 50rpx;
-    line-height: 50rpx;
+    height: 4%;
+    line-height: 3vh;
     background: white;
 }
 
-.notice image{
+.notice image {
     height: 50rpx;
     width: 50rpx;
     margin-left: 4%;
 }
 
-.outBar{
+.outBar {
     height: 1rpx;
     width: 92%;
     margin-top: 10rpx;
     background: #DDDDDD;
 }
-.inBar{
+
+.inBar {
     height: 5rpx;
     width: 0;
     background: #00C907;
 }
+
 .info {
     display: flex;
     flex-direction: column;
@@ -60,22 +68,26 @@
     border-radius: 150rpx;
 }
 
-.words{
-    margin-top: 6%;
+.words {
+    margin-top: 10%;
     height: 100rpx;
     line-height: 100rpx;
     width: 350rpx;
     border-radius: 20rpx;
-    font-size: 45rpx;
+    font-size: 55rpx;
     font-weight: 800;
+    text-align: center; 
 }
-.answerList{
+
+.answerList {
+    margin-top: 5%;
     display: flex;
     flex-direction: column;
     width: 100%;
     text-align: center;
 }
-.answer{
+
+.answer {
     margin-top: 6%;
     height: 100rpx;
     line-height: 100rpx;
@@ -87,37 +99,117 @@
     border-color: #E3E3E3;
 }
 
-.result{
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;justify-content: center;
+    width: 92%;
+    height: 55%;
+        border-radius: 5px;
+    border-style: solid;
+    border-width: 1.9rpx;
+    border-color: #E3E3E3;
+    background: white;
+    margin-top: 14vh;
+
+
+    /* background: #F1FBF7; */
+}
+
+.winer {
+    width: 60%;
+    height: 100rpx;
+    border-radius: 20rpx;
+    background: white;
+    line-height: 90rpx;
+    text-align: center;
+    font-size: 40rpx;
+    font-weight: 800;
+    color: green;
+    
+}
+
+.btn {
+    font-size: 32rpx;
+    text-align: center;
+    width: 100%;
+    margin-top: 1vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 92%;
-    height: 40%;
-    margin-top: 5%;
-    border-radius: 20rpx;
-    background: #F1FBF7;
+    
 }
 
-.winer{
-    width: 60%;
-    height: 100rpx;
-    margin-top: 10%;
-    border-radius: 20rpx;
-    background: white;
-    line-height: 100rpx;
+
+.btn_button {
+    width: 80%;
+    height: 90rpx;
+    line-height: 90rpx;
+    border-radius: 70rpx;
+    background: #28BFA0;
+    color: white;
 }
 
-.btn{
-    width: 92vw;
-    height: 20vh;
-    display: flex;
-    flex-direction: row;
-    margin-top: 60rpx;
-}
 
-.btn button{
+.btn button {
     width: 40%;
     height: 80rpx;
     background: #57CCA4;
     color: white;
+}
+.topImage {
+    margin-left: 10rpx;
+    height: 40rpx;
+    width: 40rpx;
+}
+.sign {
+    font-size: 25rpx;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #8A8991;
+}
+.listContain {
+    position: relative;
+    width: 100%;
+    margin-left: 4%;
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    width: 60%;
+    margin-left: 10rpx;
+    line-height: 36rpx;
+    display: flex;
+    flex-direction: column;
+}
+.image {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    height: 80rpx;
+    width: 80rpx;
+    border-radius: 80rpx;
+}
+.btn_result {
+    width: 80%;
+    margin-top: 40%;
+    height: 70rpx;
+    line-height: 70rpx;
+    border-radius: 70rpx;
+    background: #28BFA0;
+    color: white;
+}
+
+/**
+* author：ToualeCula
+* time： 2022/6/17
+*/
+
+.f2 {
+    color: #8A8991;
+    margin-top: 30rpx;
 }

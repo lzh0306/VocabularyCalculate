@@ -8,11 +8,13 @@
     flex-direction: column;
     font-size: 27rpx;
 }
-.hImage{
+
+.hImage {
     width: 80vw;
     height: 40vh;
 }
-.oFunction{
+
+.oFunction {
     margin-top: 50rpx;
     display: flex;
     justify-content: center;
@@ -24,14 +26,15 @@
     color: #606362;
 }
 
-.mFunction{
+.mFunction {
     width: 50%;
 }
-.iFunction{
+
+.iFunction {
     display: flex;
 }
 
-.image{
+.image {
     width: 40rpx;
     height: 40rpx;
 }
@@ -42,11 +45,12 @@
     font-weight: 900;
 }
 
-.f2{
+.f2 {
     color: #8A8991;
     margin-top: 20rpx;
 }
-.btn_begin{
+
+.btn_begin {
     line-height: 60rpx;
     height: 60rpx;
     text-align: center;

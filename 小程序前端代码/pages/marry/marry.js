@@ -18,19 +18,24 @@ Page({
         anr: {},
         msg: "暂无公告",
         result: '',
+        // ------ added by ToualeCula 2022/6/17 -------
+        loadingMsg: "正在匹配中,请稍后", // used for loading msg,for 
+        setInter: '', // timeIntel
+        countLoad: 0 //used for recovery the loadingMsg
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
         websocket.ws_connect(data => {
-            console.log(data) //打印常链接返回的更新内容 
             if (data.type == "LOGIN") {
                 this.setData({
                     isConnect: 1,
                 })
             } else if (data.type == "QUESTION") {
+                clearInterval(this.data.setInter);
                 if (data.code == "1") {
                     this.question(data)
                     this.count(1)
@@ -40,6 +45,7 @@ Page({
                     })
                 }
             } else if (data.type == "OVERGAME") {
+                
                 this.backAnimation()
                 this.overGame(data)
             } else if (data == "10033") {
@@ -54,7 +60,7 @@ Page({
     },
 
     //
-    closeMarry(){
+    closeMarry() {
         this.exit("已取消，退出房间")
     },
     //处理question数据
@@ -121,10 +127,10 @@ Page({
                 "image": userInfo.avatarUrl,
                 "userName": userInfo.nickName
             }
+
             this.setData({
                 isConnect: 0
             })
-            console.log(msg)
             websocket.sendMsg(msg)
         }
     },
@@ -216,20 +222,22 @@ Page({
 
     //退出房间
     exit(msg) {
+        clearInterval(this.data.setInter)
         this.setData({
             isExit: 0
         })
         wx.showToast({
             title: msg,
             icon: "none",
-            duration: 2000
+            duration: 1000
         })
-        websocket.close()
+
         setTimeout(function timer() {
+            websocket.close()
             wx.switchTab({
                 url: '/pages/index/index',
             })
-        }, 2100)
+        }, 1100)
     },
 
     //返回首页
@@ -241,10 +249,11 @@ Page({
 
     //再来一局
     oneMore() {
+        this.loading()
         this.setData({
             isMarry: "1",
             isResult: "1",
-            isConnect: 0
+            isConnect: 0,
         })
         this.onLoad()
     },
@@ -252,6 +261,7 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+        this.loading()
 
     },
 
@@ -299,5 +309,39 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+
+    /**
+     * used for loading
+     * by:Touale Cula
+     */
+    runLoad: function () {
+
+        this.setData({
+            loadingMsg: this.data.loadingMsg + '.'
+        })
+
+    },
+
+    loading: function () {
+        var that = this;
+        that.data.setInter = setInterval(
+            function () {
+                console.log("loading alive ") // used for checking is alive?
+
+                if (that.data.countLoad == 4) {
+                    that.data.countLoad++
+                    return;
+                }
+                if (that.data.countLoad++ >=5) {
+                    that.data.countLoad = 0;
+                    that.data.loadingMsg = "正在匹配中,请稍后";
+                    return
+                }
+
+                that.setData({
+                    loadingMsg: that.data.loadingMsg + '.'
+                });
+            }, 500);
     }
 })

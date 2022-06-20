@@ -1,7 +1,12 @@
 <view wx:if="{{isMarry}}" class="marryContain">
-    <image src="/images/CET.png"></image>
-    <button type="primary" bindtap="closeMarry">取消匹配</button>
+    <image class="pipei" src="/images/marry.png"></image>
+    <!-- 在上面src加图片 -->
+
+    <text class="f2">{{loadingMsg}}</text>
+    <button type="primary" bindtap="closeMarry" style="margin-top: 10vh; width: 80%;border-radius: 70rpx; ">取消匹配</button>
+
 </view>
+
 
 <view wx:else class="marryContain">
     <view class="notice">
@@ -12,6 +17,8 @@
     <view class="outBar">
         <view class="inBar" animation="{{anr}}"></view>
     </view>
+
+    <block wx:if="{{isResult}}">
     <view class="headImage">
         <view class="info">
             <image src="{{userInfo[0].image}}"></image>
@@ -23,9 +30,9 @@
             <text>{{userInfo[1].userName}}</text>
         </view>
     </view>
-    <block wx:if="{{isResult}}">
+   
         <view class="words">{{title.question}}</view>
-        
+
         <view class="answerList">
             <view class="answer" bindtap="choose" data-answer="a" style="background: {{color[0]}};">
                 <text>{{title.a}}</text>
@@ -42,16 +49,47 @@
         </view>
     </block>
     <block wx:else>
+    <view style="width: 100%;height: 96%; display: flex;justify-content: center; background: #EDEDED;">
         <view class="result">
             <view class="winer">{{result.result}}</view>
-            <text style="margin-top: 50rpx;">{{result.users[0].userName}}的分数为：{{result.users[0].score}}</text>
-            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
-            <text style="margin-top: 50rpx;">{{result.users[1].userName}}的分数为：{{result.users[1].score}}</text>
-            <view style="width: 82%;height: 1rpx;background: #DDDDDD; margin-top: 10rpx;"></view>
-            <view class="btn">
-                <button bindtap="back">返回首页</button>
-                <button bindtap="oneMore">再来一局</button>
+            <view class="listContain">
+                <image class="topImage" src="/images/first.png"></image>
+                <image class="image" src="{{result.users[0].image}}" mode="aspectFit"></image>
+                <view class="name">
+                    <text>{{result.users[0].userName}}</text>
+                    <text class="sign">像我这样的人，是不会轻易透露自己的个性签名的！</text>
+                </view>
+                <text style="position: absolute; right: 80rpx;font-size: 28rpx;">{{result.users[0].score}}</text>
             </view>
+            <view style="width: 92%;margin-left: 4%; height: 1rpx;background: #DDDDDD;">
+            </view>
+            <view class="listContain">
+                <image class="topImage" src="/images/second.png"></image>
+                <image class="image" src="{{result.users[1].image}}" mode="aspectFit"></image>
+                <view class="name">
+                    <text>{{result.users[1].userName}}</text>
+                    <text class="sign">像我这样的人，是不会轻易透露自己的个性签名的！</text>
+                </view>
+                <text style="position: absolute; right: 80rpx;font-size: 28rpx;">{{result.users[1].score}}</text>
+            </view>
+
+            <view style="width: 92%;margin-left: 4%; height: 1rpx;background: #DDDDDD;">
+            </view>
+
+
+           
+
+            <view class="btn">
+                
+                <view class="btn_button"  style="margin-top: 56rpx;background: #28BFA0;;" bindtap="oneMore">再来一局</view>
+                <view  class="btn_button" style="margin-top: 56rpx;background: #FD945D;" bindtap="back">返回首页</view>
+
+            </view>
+
         </view>
+
+</view>
+
+
     </block>
 </view>
